@@ -1,0 +1,10 @@
+<div class="grid">
+  <ng-container *ngFor="let row of generateRange(rows); index as r">
+    <div class="row">
+      <div class="cell" *ngFor="let col of generateRange(cols); index as c">
+        <!-- Display row and column number for each cell -->
+        <app-device-icon [deviceNumber]="r * cols + c + 1"></app-device-icon>
+      </div>
+    </div>
+  </ng-container>
+</div>
