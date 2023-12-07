@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DeviceIconComponent } from '../../common-components/icons/device-icon/device-icon.component';
 
 @Component({
   selector: 'app-grid',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GridComponent implements OnInit {
 
-  rows: number = 5; // Default rows
-  cols: number = 5; // Default columns
+  rows: number = 10; // Default rows
+  cols: number = 10; // Default columns
+
+ public get getWhenDeviceCanBeHidden() : boolean {
+  return true
+ }
+
 
   constructor() { }
 

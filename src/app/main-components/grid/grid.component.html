@@ -1,9 +1,9 @@
 <div class="grid">
-  <ng-container *ngFor="let row of generateRange(rows); index as r">
+  <ng-container *ngFor="let row of generateRange(rows)">
     <div class="row">
-      <div class="cell" *ngFor="let col of generateRange(cols); index as c">
-        <!-- Display row and column number for each cell -->
-        <app-device-icon [deviceNumber]="r * cols + c + 1"></app-device-icon>
+      <div class="cell" *ngFor="let col of generateRange(cols)" [ngSwitch]="row">
+          <app-device-icon *ngSwitchCase="0" [deviceNumber]="col + 1" [hidden]="col + 1 >= 5"></app-device-icon>
+          <app-device-icon *ngSwitchCase="1" [deviceNumber]="col + 1" [hidden]="col + 1 >= 2"></app-device-icon>
       </div>
     </div>
   </ng-container>

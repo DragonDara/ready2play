@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingNotificationComponent } from '../../main-components/booking-notification/booking-notification.component';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  hidden: boolean = false;
+
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
   }
 
+  openDialog() {
+    this.hidden = !this.hidden;
+
+    this.dialog.open(BookingNotificationComponent, {
+      data: {
+        animal: 'panda',
+      },
+    });
+  }
 }
