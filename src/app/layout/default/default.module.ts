@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BookingNotificationComponent } from '../../main-components/booking-notification/booking-notification.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   exports: [
     DefaultComponent,

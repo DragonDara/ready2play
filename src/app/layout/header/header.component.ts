@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
     this.hidden = !this.hidden;
 
     this.dialog.open(BookingNotificationComponent, {
-      data: {
-        animal: 'panda',
-      },
+      minWidth: "400px",
+      maxWidth: "400px",
+      position: {top: '90px', right:'5px'},
     });
   }
 }
