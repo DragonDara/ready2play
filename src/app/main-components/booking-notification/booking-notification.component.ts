@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
 
 @Component({
   selector: 'app-booking-notification',
@@ -9,6 +10,7 @@ export class BookingNotificationComponent implements OnInit {
 
   public bookingNotifications: IBookingNotification[] = [
     {
+      id: 1,
       userName: "Darkhan",
       zone: "Playstation room",
       tariff: "Ночной",
@@ -17,6 +19,7 @@ export class BookingNotificationComponent implements OnInit {
       timeTo: new Date(2023, 12, 12, 23, 30, 0)
     },
     {
+      id: 2,
       userName: "Nurlan",
       zone: "Playstation room",
       tariff: "Ночной",
@@ -34,11 +37,4 @@ export class BookingNotificationComponent implements OnInit {
 
 
 
-interface IBookingNotification {
-  userName: string;
-  zone: string;
-  deviceNumber: number;
-  timeFrom: Date;
-  timeTo: Date;
-  tariff: string;
-}
+

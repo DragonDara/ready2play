@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Device } from '../../../models/device.enum';
 
 @Component({
   selector: 'app-device-icon',
@@ -7,7 +8,8 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 })
 export class DeviceIconComponent implements OnInit {
 
-  @Input() deviceNumber: number = 0
+  public deviceType: typeof Device = Device;
+  @Input() device: [number, Device] = [0, Device.Default]
 
   constructor() { }
 

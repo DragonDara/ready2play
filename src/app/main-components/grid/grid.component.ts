@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DeviceIconComponent } from '../../common-components/icons/device-icon/device-icon.component';
+import { Device } from '../../models/device.enum';
 
 @Component({
   selector: 'app-grid',
@@ -8,13 +9,9 @@ import { DeviceIconComponent } from '../../common-components/icons/device-icon/d
 })
 export class GridComponent implements OnInit {
 
+  public deviceType: typeof Device = Device;
   rows: number = 10; // Default rows
   cols: number = 10; // Default columns
-
- public get getWhenDeviceCanBeHidden() : boolean {
-  return true
- }
-
 
   constructor() { }
 

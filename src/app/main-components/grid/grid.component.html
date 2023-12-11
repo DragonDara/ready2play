@@ -2,8 +2,8 @@
   <ng-container *ngFor="let row of generateRange(rows)">
     <div class="row">
       <div class="cell" *ngFor="let col of generateRange(cols)" [ngSwitch]="row">
-          <app-device-icon *ngSwitchCase="0" [deviceNumber]="col + 1" [hidden]="col + 1 >= 5"></app-device-icon>
-          <app-device-icon *ngSwitchCase="1" [deviceNumber]="col + 1" [hidden]="col + 1 >= 2"></app-device-icon>
+          <app-device-icon *ngSwitchCase="0" [device]="[col + 1, deviceType.PC]" [hidden]="col + 1 >= 5"></app-device-icon>
+          <app-device-icon *ngSwitchCase="1" [device]="[col + 1, deviceType.PS]" [hidden]="col + 1 >= 3"></app-device-icon>
       </div>
     </div>
   </ng-container>
