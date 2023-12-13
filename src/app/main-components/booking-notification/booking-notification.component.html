@@ -17,7 +17,7 @@
           <mat-grid-tile-header>
             Место
           </mat-grid-tile-header>
-          {{booking.deviceNumber}}
+          {{booking.device.number}}
         </mat-grid-tile>
         <mat-grid-tile>
           <mat-grid-tile-header>
@@ -34,7 +34,7 @@
       </mat-grid-list>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Принять</button>
+      <button mat-raised-button color="primary" (click)="createBooking(booking)">Принять</button>
       <button mat-raised-button color="warn">Отклонить</button>
     </mat-card-actions>
   </mat-card>
