@@ -4,6 +4,9 @@ import { Device } from '../../models/device.enum';
 import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
 import { IDevice } from '../../models/entities/interfaces/IDevice';
 import { BookingService } from '../../services/data-sharing/booking.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingNotificationComponent } from '../booking-notification/booking-notification.component';
+import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
 
 @Component({
   selector: 'app-grid',
@@ -35,7 +38,8 @@ export class GridComponent implements OnInit {
 
 
   constructor(
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +54,14 @@ export class GridComponent implements OnInit {
 
   selectDevice(device: IDevice) {
     this.selectedDeviceBookings = this.bookingService.getBookingsForDeviceTypeAndNumber(device.type, device.number);
-    console.log(this.selectedDeviceBookings)
-    // Now you can display the bookings in your UI, for example, in a modal
+
+    const dialogRef = this.dialog.open(DeviceBookingsComponent, {
+      minWidth: "400px",
+      maxWidth: "400px",
+      data:  {
+        deviceNumber: device.number,
+        selectedDeviceBookings: this.selectedDeviceBookings
+      }  // Pass the selected device bookings as data
+    });
   }
 }
