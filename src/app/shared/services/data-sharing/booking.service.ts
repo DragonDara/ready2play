@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
+import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BehaviorSubject } from 'rxjs';
-import { Device } from '../../models/device.enum';
+import { Device } from '../../../models/device.enum';
 
 @Injectable({
   providedIn: 'root',

@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
+import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BookingService } from '../../services/data-sharing/booking.service';
-import { Device } from '../../models/device.enum';
 
 @Component({
   selector: 'app-booking-notification',
   templateUrl: './booking-notification.component.html',
   styleUrls: ['./booking-notification.component.scss'],
 })
-export class BookingNotificationComponent implements OnInit {
+export class BookingNotificationComponent {
   public get bookingNotifications(): IBookingNotification[] {
     return this.bookingService.bookingNotifications;
   }
 
   constructor(private bookingService: BookingService) {}
 
-  ngOnInit() {}
+  constructor(
+    private bookingService: BookingService
+  ) { }
 
   createBooking(booking: IBookingNotification) {
     this.bookingService.addBooking(booking);

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { GridComponent } from './grid/grid.component';
-import { CommonComponentsModule } from '../common-components/common-components.module';
+import { CommonComponentsModule } from '../common-components.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeviceBookingsComponent } from './device-bookings/device-bookings.component';
 import { MatGridListModule } from '@angular/material/grid-list';

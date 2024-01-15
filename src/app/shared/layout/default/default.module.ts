@@ -8,7 +8,7 @@ import { DefaultComponent } from './default.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { BookingNotificationComponent } from '../../main-components/booking-notification/booking-notification.component';
+import { BookingNotificationComponent } from '../../components/booking-notification/booking-notification.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';

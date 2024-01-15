@@ -1,0 +1,51 @@
+@use "../../styles/media-query" as media;
+/* (min-width: 600px) and (max-width: 1199px) */
+
+@include media.mobile-only {
+    button {
+      display: block;
+      width: 50px;
+      color: green;
+    }
+}
+/* (min-width: 600px) and (max-width: 1199px) */
+@include media.tablet-landscape-up {
+    button {
+      display: block;
+      width: 100px;
+      color: red;
+    }
+}
+/* (min-width: 600px) and (max-width: 1199px) */
+
+@include media.desktop-up {
+    button {
+      display: block;
+      width: 163px;
+    }
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //margin: ;
+}
+
+section {
+  display: table;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+}
