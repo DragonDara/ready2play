@@ -11,9 +11,8 @@ describe('LeftSideMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeftSideMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [LeftSideMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

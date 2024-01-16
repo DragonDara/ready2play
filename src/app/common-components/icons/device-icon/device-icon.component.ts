@@ -5,19 +5,16 @@ import { IDevice } from '../../../models/entities/interfaces/IDevice';
 @Component({
   selector: 'app-device-icon',
   templateUrl: './device-icon.component.html',
-  styleUrls: ['./device-icon.component.css']
+  styleUrls: ['./device-icon.component.css'],
 })
 export class DeviceIconComponent implements OnInit {
-
   public deviceType: typeof Device = Device;
   @Input() device: IDevice = {
     type: Device.Default,
-    number: 0
-  }
+    number: 0,
+  };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

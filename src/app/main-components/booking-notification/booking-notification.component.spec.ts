@@ -11,9 +11,8 @@ describe('BookingNotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookingNotificationComponent ]
-    })
-    .compileComponents();
+      declarations: [BookingNotificationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

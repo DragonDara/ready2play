@@ -11,9 +11,8 @@ describe('DeviceBookingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviceBookingsComponent ]
-    })
-    .compileComponents();
+      declarations: [DeviceBookingsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

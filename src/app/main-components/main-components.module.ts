@@ -12,10 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [
-    GridComponent,
-    DeviceBookingsComponent
-  ],
+  declarations: [GridComponent, DeviceBookingsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -25,9 +22,9 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [],
-  exports: [GridComponent]
+  exports: [GridComponent],
 })
-export class MainComponentsModule { }
+export class MainComponentsModule {}

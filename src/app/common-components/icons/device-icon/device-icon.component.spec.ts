@@ -11,9 +11,8 @@ describe('DeviceIconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviceIconComponent ]
-    })
-    .compileComponents();
+      declarations: [DeviceIconComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

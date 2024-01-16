@@ -6,16 +6,16 @@ import { IBookingNotification } from '../../models/entities/interfaces/IBookingN
 @Component({
   selector: 'app-device-bookings',
   templateUrl: './device-bookings.component.html',
-  styleUrls: ['./device-bookings.component.scss']
+  styleUrls: ['./device-bookings.component.scss'],
 })
 export class DeviceBookingsComponent implements OnInit {
   bookings: IBookingNotification[];
 
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {
-      deviceNumber: number,
-      selectedDeviceBookings: IBookingNotification[]
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      deviceNumber: number;
+      selectedDeviceBookings: IBookingNotification[];
     },
   ) {
     this.bookings = data.selectedDeviceBookings;

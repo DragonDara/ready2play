@@ -18,7 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     DefaultComponent,
     HeaderComponent,
     LeftSideMenuComponent,
-    BookingNotificationComponent
+    BookingNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -29,12 +29,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
   ],
-  exports: [
-    DefaultComponent,
-    HeaderComponent,
-    LeftSideMenuComponent
-  ]
+  exports: [DefaultComponent, HeaderComponent, LeftSideMenuComponent],
 })
-export class DefaultModule { }
+export class DefaultModule {}
