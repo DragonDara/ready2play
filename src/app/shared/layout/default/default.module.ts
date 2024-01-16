@@ -12,6 +12,7 @@ import { BookingNotificationComponent } from '../../components/booking-notificat
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MenuItem} from "../../components/header-main-page/menu-item.component";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCardModule,
     MatDialogModule,
     MatGridListModule,
+    MenuItem,
   ],
   exports: [DefaultComponent, HeaderComponent, LeftSideMenuComponent],
 })

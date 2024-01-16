@@ -1,0 +1,58 @@
+@use "../../styles/media-query" as media;
+
+:host {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding: 20px 24px;
+  font-weight: 500;
+}
+
+mat-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+
+/* (min-width: 600px) */
+
+@include media.mobile-only {
+  :host {
+    padding: 10px 12px;
+  }
+  span, mat-icon {
+    font-size: 10px;
+  }
+  mat-icon {
+    width: 12px;
+    margin-right: 0;
+  }
+}
+
+@include media.tablet-landscape-up {
+  :host {
+    padding: 15px 18px;
+  }
+  span, mat-icon {
+    font-size: 14px;
+  }
+  mat-icon {
+    width: 18px;
+    margin-right: 4px;
+  }
+}
+
+@include media.desktop-up {
+  :host {
+    padding: 20px 24px;
+  }
+  span, mat-icon {
+    font-size: 16px;
+  }
+  mat-icon {
+    width: 24px;
+    margin-right: 8px;
+  }
+}
+

@@ -4,18 +4,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DefaultModule } from './shared/layout/default/default.module';
-import { GridComponent } from './shared/components/grid/grid.component';
 import { MainComponentsModule } from './shared/components/main-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule} from "@angular/common/http";
+import { MapHallComponent } from './features/map-hall/map-hall.component';
+import { ZoneTariffsComponent } from './features/zone-tariffs/zone-tariffs.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    MapHallComponent,
+    ZoneTariffsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MainComponentsModule,
     DefaultModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

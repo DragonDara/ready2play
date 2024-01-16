@@ -4,6 +4,12 @@
   height: 100%;
 }
 
+.default-content {
+  display: flex;
+  /*flex: 10em 1em;*/
+}
+
 .content {
+  width: 100%;
   padding: 20px;
 }
