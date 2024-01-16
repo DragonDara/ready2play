@@ -1,28 +1,41 @@
-@use "../../styles/media-query" as media;
+@use '../../styles/media-query' as media;
+
 /* (min-width: 600px) and (max-width: 1199px) */
+:host {
+  border: 1px solid #f4f4f4;
+}
 
 @include media.mobile-only {
-    button {
-      display: block;
-      width: 50px;
-      color: green;
-    }
+  :host {
+    padding: 7px 12px;
+  }
+  button {
+    display: block;
+    width: 50px;
+    color: green;
+  }
 }
 /* (min-width: 600px) and (max-width: 1199px) */
 @include media.tablet-landscape-up {
-    button {
-      display: block;
-      width: 100px;
-      color: red;
-    }
+  :host {
+    padding: 10px 18px;
+  }
+  button {
+    display: block;
+    width: 100px;
+    color: red;
+  }
 }
 /* (min-width: 600px) and (max-width: 1199px) */
 
 @include media.desktop-up {
-    button {
-      display: block;
-      width: 163px;
-    }
+  :host {
+    padding: 14px 24px;
+  }
+  button {
+    display: block;
+    width: 163px;
+  }
 }
 
 .user {

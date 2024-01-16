@@ -35,19 +35,11 @@ $reverse-place-admin-panel-web-theme: mat.define-light-theme(
 @include mat.all-component-themes($reverse-place-admin-panel-web-theme);
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-body,
-html {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-}
-
 html,
 body {
-  height: 100%;
-}
-body {
+  padding: 0;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  height: 100%;
 }
 

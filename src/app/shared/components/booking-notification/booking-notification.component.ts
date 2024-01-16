@@ -15,10 +15,6 @@ export class BookingNotificationComponent {
 
   constructor(private bookingService: BookingService) {}
 
-  constructor(
-    private bookingService: BookingService
-  ) { }
-
   createBooking(booking: IBookingNotification) {
     this.bookingService.addBooking(booking);
     // Optionally, clear the booking form or navigate away

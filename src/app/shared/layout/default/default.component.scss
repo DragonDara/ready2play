@@ -1,15 +1,14 @@
 :host {
   display: flex;
-  flex-direction: column;
   height: 100%;
 }
 
 .default-content {
   display: flex;
-  /*flex: 10em 1em;*/
+  width: 100%;
+  flex-direction: column;
 }
 
 .content {
-  width: 100%;
   padding: 20px;
 }

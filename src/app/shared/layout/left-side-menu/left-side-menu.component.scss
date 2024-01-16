@@ -1,14 +1,13 @@
 :host {
   display: flex;
-  flex: 1 1 264px;
-  height: 100%;
+  padding-top: 92px;
+  flex: 0 1 264px;
   flex-direction: column;
-  background: #FFFFFF;
-  border-right: 1px solid #F4F4F4;
+  background: #ffffff;
+  border-right: 1px solid #f4f4f4;
 }
 
-
-//app-menu-item {
-//  border-right: 4px solid #FFFFFF;
-//  background: rgba(0, 119, 255, 0.04);
-//}
+.active-menu-item {
+  border-right: 4px solid #2948E9;
+  background: rgba(0, 119, 255, 0.04);
+}

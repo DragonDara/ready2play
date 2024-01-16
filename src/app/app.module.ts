@@ -6,15 +6,19 @@ import { AppComponent } from './app.component';
 import { DefaultModule } from './shared/layout/default/default.module';
 import { MainComponentsModule } from './shared/components/main-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { MapHallComponent } from './features/map-hall/map-hall.component';
 import { ZoneTariffsComponent } from './features/zone-tariffs/zone-tariffs.component';
+import { HistoryComponent } from './features/history/history.component';
+import { UsersComponent } from './features/users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapHallComponent,
     ZoneTariffsComponent,
+    HistoryComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,7 @@ import { ZoneTariffsComponent } from './features/zone-tariffs/zone-tariffs.compo
     MainComponentsModule,
     DefaultModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
