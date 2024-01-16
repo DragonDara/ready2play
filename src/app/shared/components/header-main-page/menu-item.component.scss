@@ -1,4 +1,4 @@
-@use "../../styles/media-query" as media;
+@use '../../styles/media-query' as media;
 
 :host {
   display: flex;
@@ -14,14 +14,14 @@ mat-icon {
   margin-right: 8px;
 }
 
-
 /* (min-width: 600px) */
 
 @include media.mobile-only {
   :host {
     padding: 10px 12px;
   }
-  span, mat-icon {
+  span,
+  mat-icon {
     font-size: 10px;
   }
   mat-icon {
@@ -34,7 +34,8 @@ mat-icon {
   :host {
     padding: 15px 18px;
   }
-  span, mat-icon {
+  span,
+  mat-icon {
     font-size: 14px;
   }
   mat-icon {
@@ -47,7 +48,8 @@ mat-icon {
   :host {
     padding: 20px 24px;
   }
-  span, mat-icon {
+  span,
+  mat-icon {
     font-size: 16px;
   }
   mat-icon {
@@ -55,4 +57,3 @@ mat-icon {
     margin-right: 8px;
   }
 }
-
