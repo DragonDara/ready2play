@@ -1,64 +1,121 @@
 @use '../../styles/media-query' as media;
-
-/* (min-width: 600px) and (max-width: 1199px) */
 :host {
-  border: 1px solid #f4f4f4;
-}
-
-@include media.mobile-only {
-  :host {
-    padding: 7px 12px;
-  }
-  button {
-    display: block;
-    width: 50px;
-    color: green;
-  }
-}
-/* (min-width: 600px) and (max-width: 1199px) */
-@include media.tablet-landscape-up {
-  :host {
-    padding: 10px 18px;
-  }
-  button {
-    display: block;
-    width: 100px;
-    color: red;
-  }
-}
-/* (min-width: 600px) and (max-width: 1199px) */
-
-@include media.desktop-up {
-  :host {
-    padding: 14px 24px;
-  }
-  button {
-    display: block;
-    width: 163px;
-  }
-}
-
-.user {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  //margin: ;
+  width: 100%;
 }
 
-section {
-  display: table;
+.buffer {
+  width: 100%;
+  flex: 0 1 264px;
+  min-width: 103px;
+  max-width: 264px;
+}
+
+.add-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border: 1px solid #f4f4f4;
+  align-items: center;
 }
 
 .example-button-row {
-  display: table-cell;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 600px;
 }
 
-.example-button-row .mat-mdc-button-base {
-  margin: 8px 8px 8px 0;
+mat-icon {
+  cursor: pointer;
+  color: #3f51b5;
 }
 
-.example-button-container {
-  display: flex;
-  justify-content: center;
+.radius-button {
+  border-radius: 100px;
+}
+
+@include media.mobile-only {
+  .buffer {
+    max-width: 103px;
+  }
+
+  header {
+    padding: 7px 12px;
+  }
+
+  .radius-button,
+  mdc-button--raised {
+    padding: 0 8px;
+    font-size: 6px;
+    height: 16px;
+    width: 63px;
+  }
+
+  mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+  }
+
+  .profile {
+    margin-left: 12px;
+  }
+}
+
+@include media.tablet-landscape-up {
+  header {
+    padding: 10px 18px;
+  }
+
+  .radius-button,
+  mdc-button--raised {
+    padding: 0 12px;
+    font-size: 10px;
+    height: 26px;
+    width: 150px;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+  }
+
+  .profile {
+    margin-left: 18px;
+  }
+}
+
+@include media.desktop-up {
+  header {
+    padding: 14px 24px;
+  }
+
+  .radius-button,
+  mdc-button--raised {
+    padding: 0 16px;
+    font-size: 14px;
+    height: 40px;
+    width: 210px;
+  }
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+  }
+
+  .profile {
+    margin-left: 24px;
+  }
 }

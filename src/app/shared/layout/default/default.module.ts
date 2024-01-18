@@ -12,7 +12,9 @@ import { BookingNotificationComponent } from '../../components/booking-notificat
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MenuItem} from "../../components/header-main-page/menu-item.component";
+import { MenuItemComponent } from '../../components/menu-item/menu-item.component';
+import { ProfileComponent } from '../../components/profile/profile.component';
+import { ActiveHeaderComponent } from '../../components/active-header/active-header.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {MenuItem} from "../../components/header-main-page/menu-item.component";
     MatCardModule,
     MatDialogModule,
     MatGridListModule,
-    MenuItem,
+    MenuItemComponent,
+    ProfileComponent,
+    ActiveHeaderComponent,
   ],
   exports: [DefaultComponent, HeaderComponent, LeftSideMenuComponent],
 })

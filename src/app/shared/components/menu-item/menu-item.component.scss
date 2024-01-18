@@ -19,6 +19,7 @@ mat-icon {
 @include media.mobile-only {
   :host {
     padding: 10px 12px;
+    max-width: 103px;
   }
   span,
   mat-icon {
