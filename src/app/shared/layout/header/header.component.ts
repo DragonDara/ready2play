@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingNotificationComponent } from '../../components/booking-notification/booking-notification.component';
 
@@ -7,12 +7,10 @@ import { BookingNotificationComponent } from '../../components/booking-notificat
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   hidden = false;
 
   constructor(public dialog: MatDialog) {}
-
-  ngOnInit() {}
 
   openDialog() {
     this.hidden = !this.hidden;

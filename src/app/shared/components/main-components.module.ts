@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-import { MenuItem } from './header-main-page/menu-item.component';
+import { ActiveHeaderComponent } from './active-header/active-header.component';
 
 @NgModule({
   declarations: [GridComponent, DeviceBookingsComponent],

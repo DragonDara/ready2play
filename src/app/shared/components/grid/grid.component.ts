@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DeviceIconComponent } from '../../icons/device-icon/device-icon.component';
+import { Component, OnInit } from '@angular/core';
 import { Device } from '../../../models/device.enum';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { BookingService } from '../../services/data-sharing/booking.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingNotificationComponent } from '../booking-notification/booking-notification.component';
 import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
 
 @Component({

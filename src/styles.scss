@@ -1,6 +1,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
+@use 'app/shared/styles/media-query' as media;
 @use '@angular/material' as mat;
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -32,8 +34,9 @@ $reverse-place-admin-panel-web-theme: mat.define-light-theme(
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+
 @include mat.all-component-themes($reverse-place-admin-panel-web-theme);
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html,
 body {
@@ -43,3 +46,35 @@ body {
   height: 100%;
 }
 
+@include media.mobile-only {
+  #mat-badge-content-0  {
+    top: -5px;
+    right: -5px;
+    width: 11px;
+    height: 11px;
+    line-height: 11px;
+    font-size: 6px;
+  }
+}
+
+@include media.tablet-landscape-up {
+  #mat-badge-content-0 {
+    top: -8px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 9px;
+  }
+}
+
+@include media.desktop-up {
+  #mat-badge-content-0 {
+    top: -11px;
+    right: -11px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+  }
+}

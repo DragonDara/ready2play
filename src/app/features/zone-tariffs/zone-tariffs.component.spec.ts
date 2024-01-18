@@ -8,10 +8,9 @@ describe('ZoneTariffsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ZoneTariffsComponent]
-    })
-    .compileComponents();
-    
+      declarations: [ZoneTariffsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ZoneTariffsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

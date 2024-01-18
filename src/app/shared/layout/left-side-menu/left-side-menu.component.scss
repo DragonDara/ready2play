@@ -1,13 +1,23 @@
+@use '../../styles/media-query' as media;
+
 :host {
   display: flex;
-  padding-top: 92px;
   flex: 0 1 264px;
+  max-width: 264px;
   flex-direction: column;
   background: #ffffff;
   border-right: 1px solid #f4f4f4;
 }
 
 .active-menu-item {
+  color: #2948E9;
   border-right: 4px solid #2948E9;
   background: rgba(0, 119, 255, 0.04);
 }
+
+@include media.mobile-only {
+  :host {
+    max-width: 103px;
+  }
+}
+

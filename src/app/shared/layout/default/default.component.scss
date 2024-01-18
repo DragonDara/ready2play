@@ -1,14 +1,16 @@
 :host {
   display: flex;
-  height: 100%;
+  flex-direction: column;
 }
 
 .default-content {
   display: flex;
   width: 100%;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
 .content {
+  width: 100%;
   padding: 20px;
 }
+

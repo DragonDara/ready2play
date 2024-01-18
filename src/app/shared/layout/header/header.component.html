@@ -1,13 +1,11 @@
-<header fxLayoutAlign="space-between center">
-  <div>LOGO</div>
-  <div class="example-button-row example-button-container">
-    <button mat-raised-button color="primary">Primary</button>
-    <button mat-icon-button color="primary" (click)="openDialog()">
-      <mat-icon matBadge="15" [matBadgeHidden]="hidden" matBadgeColor="warn">home</mat-icon>
+<div class="buffer"></div>
+<header>
+  <app-active-header></app-active-header>
+  <div class="example-button-row">
+    <button class="header-button radius-button" mat-raised-button color="primary">
+      Забронировать вручную
     </button>
-    <div class="mat-mdc-button-base user">
-      <span>Асхат Ниязов</span>
-      <span>Администратор</span>
-    </div>
+    <mat-icon (click)="openDialog()"  matBadge="15" [matBadgeHidden]="hidden">notifications</mat-icon>
+    <app-profile class="profile"></app-profile>
   </div>
 </header>

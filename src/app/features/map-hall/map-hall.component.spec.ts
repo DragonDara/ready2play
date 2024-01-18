@@ -8,10 +8,9 @@ describe('MapHallComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MapHallComponent]
-    })
-    .compileComponents();
-    
+      declarations: [MapHallComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(MapHallComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

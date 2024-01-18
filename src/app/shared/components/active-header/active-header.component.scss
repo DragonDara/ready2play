@@ -1,0 +1,29 @@
+@use '../../styles/media-query' as media;
+:host {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.countUser {
+  font-size: 0.4em;
+  font-weight: 500;
+}
+
+@include media.mobile-only {
+  :host {
+    font-size: 10px;
+  }
+}
+
+@include media.tablet-landscape-up {
+  :host {
+    font-size: 18px;
+  }
+}
+
+@include media.desktop-up {
+  :host {
+    font-size: 24px;
+  }
+}

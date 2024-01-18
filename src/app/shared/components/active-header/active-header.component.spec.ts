@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoryComponent } from './history.component';
+import { ActiveHeaderComponent } from './active-header.component';
 
-describe('HistoryComponent', () => {
-  let component: HistoryComponent;
-  let fixture: ComponentFixture<HistoryComponent>;
+describe('ActiveHeaderComponent', () => {
+  let component: ActiveHeaderComponent;
+  let fixture: ComponentFixture<ActiveHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HistoryComponent],
+      declarations: [ActiveHeaderComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HistoryComponent);
+    fixture = TestBed.createComponent(ActiveHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

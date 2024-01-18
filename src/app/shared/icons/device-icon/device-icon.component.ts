@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Device } from '../../../models/device.enum';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 
@@ -7,7 +7,7 @@ import { IDevice } from '../../../models/entities/interfaces/IDevice';
   templateUrl: './device-icon.component.html',
   styleUrls: ['./device-icon.component.css'],
 })
-export class DeviceIconComponent implements OnInit {
+export class DeviceIconComponent {
   public deviceType: typeof Device = Device;
   @Input() device: IDevice = {
     type: Device.Default,
@@ -15,6 +15,4 @@ export class DeviceIconComponent implements OnInit {
   };
 
   constructor() {}
-
-  ngOnInit() {}
 }
