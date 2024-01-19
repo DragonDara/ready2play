@@ -1,6 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-header',
@@ -11,10 +10,7 @@ import { Router } from '@angular/router';
 export class ActiveHeaderComponent implements OnInit {
   header?: string;
   countUser?: string;
-  constructor(
-    private headerService: HeaderService,
-    private router: Router,
-  ) {}
+  constructor(private headerService: HeaderService) {}
 
   ngOnInit() {
     this.headerService.header.subscribe({
