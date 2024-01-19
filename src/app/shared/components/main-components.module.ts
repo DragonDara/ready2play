@@ -13,7 +13,11 @@ import { MatListModule } from '@angular/material/list';
 import { ActiveHeaderComponent } from './active-header/active-header.component';
 
 @NgModule({
-  declarations: [GridComponent, DeviceBookingsComponent],
+  declarations: [
+    GridComponent, 
+    DeviceBookingsComponent,
+    
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
