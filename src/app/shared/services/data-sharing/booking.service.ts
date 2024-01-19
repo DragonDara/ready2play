@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BehaviorSubject } from 'rxjs';
-import { Device } from '../../../models/device.enum';
+import { Device } from '../../../models/enums/device.enum';
+import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class BookingService {
       device: {
         type: Device.PC,
         number: 1,
+        mode: DeviceMode.Default
       },
       timeFrom: new Date(2023, 12, 12, 21, 30, 0),
       timeTo: new Date(2023, 12, 12, 23, 30, 0),
@@ -28,6 +30,7 @@ export class BookingService {
       device: {
         type: Device.PS,
         number: 1,
+        mode: DeviceMode.Default
       },
       timeFrom: new Date(2023, 12, 12, 21, 30, 0),
       timeTo: new Date(2023, 12, 12, 23, 30, 0),

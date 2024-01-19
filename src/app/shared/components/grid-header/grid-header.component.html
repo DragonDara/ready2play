@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field appearance="fill">
+      <mat-label>Зоны</mat-label>
+      <mat-select [value]="bootcamp">
+        <mat-option value="bootcamp">Bootcamp (2400/час)</mat-option>
+        <!-- Add more options as needed -->
+      </mat-select>
+    </mat-form-field>
+  
+    <div fxLayoutGap="10px">
+      <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle value="left" aria-label="Карта">
+          <mat-icon>
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+              <path d="M3.5 5.25C3.5 4.00736 4.50736 3 5.75 3C6.99264 3 8 4.00736 8 5.25C8 6.49264 6.99264 7.5 5.75 7.5C4.50736 7.5 3.5 6.49264 3.5 5.25Z" stroke="#2948E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11 5.25C11 4.00736 12.0074 3 13.25 3C14.4926 3 15.5 4.00736 15.5 5.25C15.5 6.49264 14.4926 7.5 13.25 7.5C12.0074 7.5 11 6.49264 11 5.25Z" stroke="#2948E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11 12.75C11 11.5074 12.0074 10.5 13.25 10.5C14.4926 10.5 15.5 11.5074 15.5 12.75C15.5 13.9926 14.4926 15 13.25 15C12.0074 15 11 13.9926 11 12.75Z" stroke="#2948E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.5 12.75C3.5 11.5074 4.50736 10.5 5.75 10.5C6.99264 10.5 8 11.5074 8 12.75C8 13.9926 6.99264 15 5.75 15C4.50736 15 3.5 13.9926 3.5 12.75Z" stroke="#2948E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </mat-icon>
+          Карта
+        </mat-button-toggle>
+        <mat-button-toggle value="right" aria-label="Списком">
+          <mat-icon>menu</mat-icon>
+          Списком
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <button  mat-fab extended color="primary">
+        <mat-icon>edit</mat-icon>
+        Редактировать
+      </button>  
+    </div>
+  </div>
+  

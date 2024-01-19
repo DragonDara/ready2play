@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Device } from '../../../models/device.enum';
+import { Device } from '../../../models/enums/device.enum';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { BookingService } from '../../services/data-sharing/booking.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
+import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 
 @Component({
   selector: 'app-grid',
@@ -21,10 +22,22 @@ export class GridComponent implements OnInit {
     {
       number: 1,
       type: Device.PC,
+      mode: DeviceMode.Available
+    },
+    {
+      number: 2,
+      type: Device.PC,
+      mode: DeviceMode.InMaintenance
+    },
+    {
+      number: 3,
+      type: Device.PC,
+      mode: DeviceMode.Reserved
     },
     {
       number: 1,
       type: Device.PS,
+      mode: DeviceMode.Reserved
     },
   ]; // Assume this is populated with actual device data
 

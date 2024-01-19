@@ -10,13 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-import { ActiveHeaderComponent } from './active-header/active-header.component';
+import { GridHeaderComponent } from './grid-header/grid-header.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
     GridComponent, 
-    DeviceBookingsComponent,
-    
+    DeviceBookingsComponent, 
+    GridHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +31,15 @@ import { ActiveHeaderComponent } from './active-header/active-header.component';
     MatIconModule,
     MatMenuModule,
     MatListModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    MatButtonToggleModule
   ],
   providers: [],
-  exports: [GridComponent],
+  exports: [
+    GridComponent,
+    GridHeaderComponent
+  ],
+
 })
 export class MainComponentsModule {}
