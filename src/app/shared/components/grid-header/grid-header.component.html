@@ -1,12 +1,13 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <mat-form-field appearance="fill">
       <mat-label>Зоны</mat-label>
-      <mat-select [value]="bootcamp">
-        <mat-option value="bootcamp">Bootcamp (2400/час)</mat-option>
-        <!-- Add more options as needed -->
+      <mat-select [(value)]="selectedZone" (selectionChange)="getSelectedOption()">
+        <mat-option *ngFor="let zone of zones" [value]="zone">
+          {{zone.name}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
-  
+
     <div fxLayoutGap="10px">
       <mat-button-toggle-group #group="matButtonToggleGroup">
         <mat-button-toggle value="left" aria-label="Карта">
@@ -28,7 +29,6 @@
       <button  mat-fab extended color="primary">
         <mat-icon>edit</mat-icon>
         Редактировать
-      </button>  
+      </button>
     </div>
   </div>
-  

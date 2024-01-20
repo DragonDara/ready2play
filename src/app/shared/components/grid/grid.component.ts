@@ -6,6 +6,7 @@ import { BookingService } from '../../services/data-sharing/booking.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
+import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 
 @Component({
   selector: 'app-grid',
@@ -18,37 +19,6 @@ export class GridComponent implements OnInit {
   public devicesPc!: IDevice[];
   public devicesPs!: IDevice[];
 
-  private devices: IDevice[] = [
-    {
-      number: 1,
-      type: Device.PC,
-      mode: DeviceMode.Available,
-      row: 1,
-      col: 1
-    },
-    {
-      number: 2,
-      type: Device.PC,
-      mode: DeviceMode.InMaintenance,
-      row: 1,
-      col: 2
-    },
-    {
-      number: 3,
-      type: Device.PC,
-      mode: DeviceMode.Reserved,
-      row: 2,
-      col: 1
-    },
-    {
-      number: 1,
-      type: Device.PS,
-      mode: DeviceMode.Reserved,
-      row: 3,
-      col: 1
-    },
-  ]; // Assume this is populated with actual device data
-
   selectedDeviceBookings: IBookingNotification[] = [];
 
   rows: number = 10; // Default rows
@@ -57,11 +27,19 @@ export class GridComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private dialog: MatDialog,
+    private deviceSharingService: DeviceSharingService,
   ) {}
 
   ngOnInit(): void {
-    this.devicesPc = this.devices.filter((x) => x.type === Device.PC);
-    this.devicesPs = this.devices.filter((x) => x.type === Device.PS);
+
+    this.deviceSharingService.getDevices()
+      .subscribe({
+        next: res => {
+          this.devicesPc = res.filter((x) => x.type === Device.PC);
+          this.devicesPs = res.filter((x) => x.type === Device.PS);
+        },
+        error: err => console.error(err)
+      })
   }
 
   // Generate an array based on the number of rows or columns
@@ -89,13 +67,11 @@ export class GridComponent implements OnInit {
 
   public canDisplayDevice(row: number, col: number, type: Device): boolean {
     if (type === this.deviceType.PC) {
-      return col < this.devicesPc.length &&
-        this.devicesPc.some(devicePc => devicePc.row === row && devicePc.col === col)
+      return this.devicesPc.some(devicePc => devicePc.row === row && devicePc.col === col)
     }
 
     if (type === this.deviceType.PS) {
-      return col < this.devicesPs.length &&
-        this.devicesPs.some(devicePs => devicePs.row === row && devicePs.col === col)
+      return this.devicesPs.some(devicePs => devicePs.row === row && devicePs.col === col)
     }
 
     throw new Error(`Unknown type of device ${type.toString()}`)
@@ -116,3 +92,35 @@ export class GridComponent implements OnInit {
     throw new Error(`Failed to fetch a device with row=${row} and col=${col}`)
   }
 }
+
+export const Devices: IDevice[] = [
+  {
+    number: 1,
+    type: Device.PC,
+    mode: DeviceMode.Available,
+    row: 1,
+    col: 1,
+
+  },
+  {
+    number: 2,
+    type: Device.PC,
+    mode: DeviceMode.InMaintenance,
+    row: 1,
+    col: 2
+  },
+  {
+    number: 3,
+    type: Device.PC,
+    mode: DeviceMode.Reserved,
+    row: 2,
+    col: 1
+  },
+  {
+    number: 1,
+    type: Device.PS,
+    mode: DeviceMode.Reserved,
+    row: 3,
+    col: 1
+  },
+]; // Assume this is populated with actual device data

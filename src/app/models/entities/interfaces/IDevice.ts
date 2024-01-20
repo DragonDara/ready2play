@@ -6,5 +6,5 @@ export interface IDevice {
   number: number;
   mode: DeviceMode;
   row: number,
-  col: number
+  col: number,
 }

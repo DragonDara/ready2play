@@ -1,5 +1,5 @@
-export enum Zone {
-  Standard,
+export enum ZoneEnum {
+  Standard = "Standard",
 
-  Bootcamp
+  Bootcamp = "Bootcamp"
 }

@@ -1,7 +1,7 @@
 <div class="grid">
   <ng-container *ngFor="let row of generateRange(rows)">
     <div class="row">
-      <div class="cell" *ngFor="let col of generateRange(cols)" [ngSwitch]="row">
+      <div class="cell" *ngFor="let col of generateRange(cols)">
         <ng-container *ngIf="canDisplayDevice(row, col, deviceType.PC)">
           <app-device-icon
             [device]="getDevice(row, col, deviceType.PC)"
