@@ -15,29 +15,37 @@ import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 export class GridComponent implements OnInit {
   public deviceType: typeof Device = Device;
 
-  public devicesPc: IDevice[] | any;
-  public devicesPs: IDevice[] | any;
+  public devicesPc!: IDevice[];
+  public devicesPs!: IDevice[];
 
   private devices: IDevice[] = [
     {
       number: 1,
       type: Device.PC,
-      mode: DeviceMode.Available
+      mode: DeviceMode.Available,
+      row: 1,
+      col: 1
     },
     {
       number: 2,
       type: Device.PC,
-      mode: DeviceMode.InMaintenance
+      mode: DeviceMode.InMaintenance,
+      row: 1,
+      col: 2
     },
     {
       number: 3,
       type: Device.PC,
-      mode: DeviceMode.Reserved
+      mode: DeviceMode.Reserved,
+      row: 2,
+      col: 1
     },
     {
       number: 1,
       type: Device.PS,
-      mode: DeviceMode.Reserved
+      mode: DeviceMode.Reserved,
+      row: 3,
+      col: 1
     },
   ]; // Assume this is populated with actual device data
 
@@ -77,5 +85,34 @@ export class GridComponent implements OnInit {
         selectedDeviceBookings: this.selectedDeviceBookings,
       }, // Pass the selected device bookings as data
     });
+  }
+
+  public canDisplayDevice(row: number, col: number, type: Device): boolean {
+    if (type === this.deviceType.PC) {
+      return col < this.devicesPc.length &&
+        this.devicesPc.some(devicePc => devicePc.row === row && devicePc.col === col)
+    }
+
+    if (type === this.deviceType.PS) {
+      return col < this.devicesPs.length &&
+        this.devicesPs.some(devicePs => devicePs.row === row && devicePs.col === col)
+    }
+
+    throw new Error(`Unknown type of device ${type.toString()}`)
+  }
+
+  public getDevice(row: number, col: number, type: Device): IDevice
+   {
+    let device: IDevice | undefined;
+    if (type === this.deviceType.PC) {
+      device = this.devicesPc.find(devicePc => devicePc.row === row && devicePc.col === col)
+    }
+
+    if (type === this.deviceType.PS) {
+      device = this.devicesPs.find(devicePs => devicePs.row === row && devicePs.col === col)
+    }
+    if (device !== undefined) return device;
+
+    throw new Error(`Failed to fetch a device with row=${row} and col=${col}`)
   }
 }

@@ -4,6 +4,7 @@ import { DeviceMode } from '../../enums/deviceMode.enum';
 export interface IDevice {
   type: Device;
   number: number;
-
-  mode: DeviceMode
+  mode: DeviceMode;
+  row: number,
+  col: number
 }

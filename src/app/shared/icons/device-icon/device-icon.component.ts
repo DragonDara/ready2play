@@ -13,12 +13,14 @@ export class DeviceIconComponent {
   @Input() device: IDevice = {
     type: Device.Default,
     number: 0,
-    mode: DeviceMode.Default
+    mode: DeviceMode.Default,
+    row: 0,
+    col: 0
   };
 
   constructor() {}
 
-  public getBackgroundColorForIcons(deviceMode: DeviceMode): string { 
+  public getBackgroundColorForIcons(deviceMode: DeviceMode): string {
     switch (deviceMode) {
       case DeviceMode.Reserved:
         return '#2F80ED'; // blue
