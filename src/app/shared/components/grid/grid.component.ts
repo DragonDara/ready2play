@@ -5,11 +5,15 @@ import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { BookingService } from '../../services/data-sharing/booking.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
+import { NgSwitch } from '@angular/common';
+import { DeviceIconComponent } from '../../icons/device-icon/device-icon.component';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css'],
+  standalone: true,
+  imports: [NgSwitch, DeviceIconComponent],
 })
 export class GridComponent implements OnInit {
   public deviceType: typeof Device = Device;

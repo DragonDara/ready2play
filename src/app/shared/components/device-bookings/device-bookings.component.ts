@@ -7,6 +7,7 @@ import { IBookingNotification } from '../../../models/entities/interfaces/IBooki
   selector: 'app-device-bookings',
   templateUrl: './device-bookings.component.html',
   styleUrls: ['./device-bookings.component.scss'],
+  standalone: true,
 })
 export class DeviceBookingsComponent implements OnInit {
   bookings: IBookingNotification[];

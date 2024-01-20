@@ -1,0 +1,24 @@
+.container-cell {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Две колонки с равной шириной */
+  gap: 10px 8px;
+}
+
+button {
+  font-size: 14px;
+  height: 32px;
+  width: 174px;
+}
+
+.button-text-blue {
+  color: #2948e9;
+}
+
+.icon-button-card {
+  width: 50px;
+  mat-icon {
+    padding-left: 11px;
+    font-size: 18px;
+  }
+}
+

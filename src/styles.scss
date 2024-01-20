@@ -46,6 +46,13 @@ body {
   height: 100%;
 }
 
+
+body .mat-mdc-raised-button  {
+  border-radius: 100px;
+  min-width: 30px;
+  border: 1px solid  #2948E9
+}
+
 @include media.mobile-only {
   #mat-badge-content-0  {
     top: -5px;

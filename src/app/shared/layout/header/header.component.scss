@@ -38,10 +38,6 @@ mat-icon {
   color: #3f51b5;
 }
 
-.radius-button {
-  border-radius: 100px;
-}
-
 @include media.mobile-only {
   .buffer {
     max-width: 103px;
@@ -51,9 +47,7 @@ mat-icon {
     padding: 7px 12px;
   }
 
-  .radius-button,
-  mdc-button--raised {
-    padding: 0 8px;
+  .header-button {
     font-size: 6px;
     height: 16px;
     width: 63px;
@@ -76,9 +70,7 @@ mat-icon {
     padding: 10px 18px;
   }
 
-  .radius-button,
-  mdc-button--raised {
-    padding: 0 12px;
+  .header-button {
     font-size: 10px;
     height: 26px;
     width: 150px;
@@ -101,9 +93,7 @@ mat-icon {
     padding: 14px 24px;
   }
 
-  .radius-button,
-  mdc-button--raised {
-    padding: 0 16px;
+  .header-button {
     font-size: 14px;
     height: 40px;
     width: 210px;

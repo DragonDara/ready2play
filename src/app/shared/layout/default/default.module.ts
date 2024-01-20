@@ -8,7 +8,6 @@ import { DefaultComponent } from './default.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { BookingNotificationComponent } from '../../components/booking-notification/booking-notification.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -17,12 +16,7 @@ import { ProfileComponent } from '../../components/profile/profile.component';
 import { ActiveHeaderComponent } from '../../components/active-header/active-header.component';
 
 @NgModule({
-  declarations: [
-    DefaultComponent,
-    HeaderComponent,
-    LeftSideMenuComponent,
-    BookingNotificationComponent,
-  ],
+  declarations: [DefaultComponent, HeaderComponent, LeftSideMenuComponent],
   imports: [
     CommonModule,
     RouterModule,

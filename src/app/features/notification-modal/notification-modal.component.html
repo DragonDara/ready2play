@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <app-card-booking *ngFor="let booking of bookingNotifications" [booking]="booking">
+  </app-card-booking>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Закрыть</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

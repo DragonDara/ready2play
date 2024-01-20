@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingNotificationComponent } from '../../components/booking-notification/booking-notification.component';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { routeHeaderTextDictionary } from '../../constants/route-header-text-dictionary';
 import { HeaderService } from '../../services/header.service';
 import { filter, map, startWith } from 'rxjs';
+import { NotificationModalComponent } from '../../../features/notification-modal/notification-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private headerService: HeaderService,
-    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -38,9 +37,9 @@ export class HeaderComponent implements OnInit {
   openDialog() {
     this.hidden = !this.hidden;
 
-    this.dialog.open(BookingNotificationComponent, {
-      minWidth: '400px',
-      maxWidth: '400px',
+    this.dialog.open(NotificationModalComponent, {
+      minWidth: '449px',
+      maxWidth: '449px',
       position: { top: '90px', right: '5px' },
     });
   }

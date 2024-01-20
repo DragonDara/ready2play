@@ -6,6 +6,7 @@ import { IDevice } from '../../../models/entities/interfaces/IDevice';
   selector: 'app-device-icon',
   templateUrl: './device-icon.component.html',
   styleUrls: ['./device-icon.component.css'],
+  standalone: true,
 })
 export class DeviceIconComponent {
   public deviceType: typeof Device = Device;

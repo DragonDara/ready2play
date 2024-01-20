@@ -1,0 +1,17 @@
+<div class="container-cell">
+  <app-cell-card title="Зал" [value]="booking?.zone"></app-cell-card>
+  <app-cell-card title="Место" [value]="booking?.device?.number"></app-cell-card>
+  <app-cell-card title="Тариф" [value]="booking?.tariff"></app-cell-card>
+  <app-cell-card
+    title="Время"
+    value="{{ booking?.timeFrom | date: 'hh:mm' }} - {{ booking?.timeTo | date: 'hh:mm' }}"
+  ></app-cell-card>
+</div>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="createBooking(booking)">Принять</button>
+  <button mat-raised-button class="button-text-blue">Отклонить</button>
+  <button class="icon-button-card" mat-raised-button>
+    <mat-icon>phone</mat-icon>
+  </button>
+</mat-dialog-actions>
