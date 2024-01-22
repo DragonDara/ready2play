@@ -46,15 +46,26 @@ body {
   height: 100%;
 }
 
-
-body .mat-mdc-raised-button  {
+body .mat-mdc-raised-button {
   border-radius: 100px;
   min-width: 30px;
-  border: 1px solid  #2948E9
+  border: 1px solid #2948e9;
+}
+
+.modal-notification {
+  .mat-mdc-dialog-container,
+  .mat-mdc-dialog-container .mdc-dialog__container,
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border: 0 solid #ffffff;
+    border-radius: 24px;
+  }
+  min-height: 550px;
+  border: 0 solid #ffffff;
+  border-radius: 24px;
 }
 
 @include media.mobile-only {
-  #mat-badge-content-0  {
+  #mat-badge-content-0 {
     top: -5px;
     right: -5px;
     width: 11px;

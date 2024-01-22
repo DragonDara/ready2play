@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CellCardComponent } from './shared/components/cell-card/cell-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { UserBookingComponent } from './shared/components/user-booking/user-booking.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogActions,
     MatGridListModule,
     MatIconModule,
+    UserBookingComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

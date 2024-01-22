@@ -38,9 +38,8 @@ export class HeaderComponent implements OnInit {
     this.hidden = !this.hidden;
 
     this.dialog.open(NotificationModalComponent, {
-      minWidth: '449px',
-      maxWidth: '449px',
-      position: { top: '90px', right: '5px' },
+      panelClass: 'modal-notification',
+      position: { top: '70px', right: '220px' },
     });
   }
 }
