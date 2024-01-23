@@ -1,0 +1,7 @@
+<span>Заявки на бронь</span>
+<mat-dialog-content>
+  <app-card-booking *ngFor="let booking of bookingNotifications" [booking]="booking">
+  </app-card-booking>
+</mat-dialog-content>
+<button mat-button mat-dialog-close>Cancel</button>
+<!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->

@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #f4f4f4;
+  border-top: 1px solid #f4f4f4;
+  mat-dialog-actions {
+    padding: 8px 12px;
+  }
+}
+
+.container-cell {
+  display: grid;
+  padding: 8px 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 8px;
+}
+
+button {
+  padding: 0 8px;
+  font-size: 14px;
+  height: 32px;
+  width: 174px;
+}
+
+.button-text-blue {
+  color: #2948e9;
+}
+
+.icon-button-card {
+  width: 50px;
+  mat-icon {
+    padding-left: 11px;
+    font-size: 18px;
+  }
+}

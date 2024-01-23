@@ -1,0 +1,50 @@
+@use '../../styles/media-query' as media;
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+}
+
+@include media.mobile-only {
+  :host {
+    font-size: 8px;
+    img {
+      width: 24px;
+      height: 24px;
+      margin-left: 4px;
+    }
+  }
+}
+
+@include media.tablet-landscape-up {
+  :host {
+    font-size: 12px;
+    img {
+      width: 36px;
+      height: 36px;
+      margin-left: 6px;
+    }
+  }
+}
+
+@include media.desktop-up {
+  :host {
+    font-size: 16px;
+    img {
+      width: 48px;
+      height: 48px;
+      margin-left: 8px;
+    }
+  }
+}
+
+.rank {
+  font-size: 0.85em;
+  color: #828282;
+}

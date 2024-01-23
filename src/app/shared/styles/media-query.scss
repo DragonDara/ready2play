@@ -1,0 +1,11 @@
+@mixin mobile-only {
+  @media screen and (max-width: 650px) {
+    @content;
+  }
+}
+@mixin tablet-landscape-up {
+  @media screen and (min-width: 651px) and (max-width: 1199px){ @content; }
+}
+@mixin desktop-up {
+  @media screen and (min-width: 1200px) { @content; }
+}
