@@ -1,18 +1,16 @@
 <div class="grid">
   <ng-container *ngFor="let row of generateRange(rows)">
     <div class="row">
-      <div class="cell" *ngFor="let col of generateRange(cols)" [ngSwitch]="row">
-        <ng-container *ngIf="col < devicesPc.length">
+      <div class="cell" *ngFor="let col of generateRange(cols)">
+        <ng-container *ngIf="canDisplayDevice(row, col, deviceType.PC)">
           <app-device-icon
-            *ngSwitchCase="0"
-            [device]="devicesPc[col]"
+            [device]="getDevice(row, col, deviceType.PC)"
             (click)="selectDevice(devicesPc[col])"
           ></app-device-icon>
         </ng-container>
-        <ng-container *ngIf="col < devicesPs.length">
+        <ng-container *ngIf="canDisplayDevice(row, col, deviceType.PS)">
           <app-device-icon
-            *ngSwitchCase="1"
-            [device]="devicesPs[col]"
+            [device]="getDevice(row, col, deviceType.PS)"
             (click)="selectDevice(devicesPs[col])"
           ></app-device-icon>
         </ng-container>
