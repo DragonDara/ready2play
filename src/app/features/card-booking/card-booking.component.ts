@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BookingService } from '../../shared/services/data-sharing/booking.service';
 import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
+import { DeviceMode } from '../../models/enums/deviceMode.enum';
 
 @Component({
   selector: 'app-card-booking',
@@ -13,6 +14,7 @@ export class CardBookingComponent {
 
   createBooking(booking?: IBookingNotification) {
     if (booking) {
+      booking.device.mode = DeviceMode.Reserved;
       this.bookingService.addBooking(booking);
       // Optionally, clear the booking form or navigate away
 

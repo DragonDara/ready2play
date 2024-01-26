@@ -1,0 +1,11 @@
+.container-cell {
+  display: grid;
+  padding: 8px 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 8px;
+}
+mat-card-title {
+  color: #171717;
+  padding: 12px;
+  font-weight: 700;
+}

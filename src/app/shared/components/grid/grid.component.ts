@@ -19,8 +19,6 @@ export class GridComponent implements OnInit {
   public devicesPc!: IDevice[];
   public devicesPs!: IDevice[];
 
-  selectedDeviceBookings: IBookingNotification[] = [];
-
   rows: number = 10; // Default rows
   cols: number = 10; // Default columns
 
@@ -47,22 +45,6 @@ export class GridComponent implements OnInit {
     return Array(size)
       .fill(0)
       .map((x, i) => i);
-  }
-
-  selectDevice(device: IDevice) {
-    this.selectedDeviceBookings = this.bookingService.getBookingsForDeviceTypeAndNumber(
-      device.type,
-      device.number,
-    );
-
-    const dialogRef = this.dialog.open(DeviceBookingsComponent, {
-      minWidth: '400px',
-      maxWidth: '400px',
-      data: {
-        deviceNumber: device.number,
-        selectedDeviceBookings: this.selectedDeviceBookings,
-      }, // Pass the selected device bookings as data
-    });
   }
 
   public canDisplayDevice(row: number, col: number, type: Device): boolean {
@@ -100,27 +82,34 @@ export const Devices: IDevice[] = [
     mode: DeviceMode.Available,
     row: 1,
     col: 1,
-
+    macAddress: '10:10:10:01',
+    ipAddress: '192.168.1.1'
   },
   {
     number: 2,
     type: Device.PC,
-    mode: DeviceMode.InMaintenance,
+    mode: DeviceMode.Available,
     row: 1,
-    col: 2
+    col: 2,
+    macAddress: '10:10:10:01',
+    ipAddress: '192.168.1.1'
   },
   {
     number: 3,
     type: Device.PC,
-    mode: DeviceMode.Reserved,
+    mode: DeviceMode.Available,
     row: 2,
-    col: 1
+    col: 1,
+    macAddress: '10:10:10:01',
+    ipAddress: '192.168.1.1'
   },
   {
     number: 1,
     type: Device.PS,
-    mode: DeviceMode.Reserved,
+    mode: DeviceMode.Available,
     row: 3,
-    col: 1
+    col: 1,
+    macAddress: '10:10:10:01',
+    ipAddress: '192.168.1.1'
   },
 ]; // Assume this is populated with actual device data

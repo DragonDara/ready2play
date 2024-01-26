@@ -22,8 +22,6 @@ export class ZoneService {
     // Return a mock observable with the mapped zones
     return of(mappedZones);
   }
-
-
 }
 
 export const Zones: IZone[] = [

@@ -5,10 +5,10 @@
     </svg>
   </div>
 </ng-container>
-<ng-container *ngIf="device.type === deviceType.PS">
+<ng-container (mouseenter)="onDeviceMouseEntered(device)" *ngIf="device.type === deviceType.PS">
   <!-- place for PS icon -->
 </ng-container>
-<div class="circle-device-number" [ngStyle]="{'background': getBackgroundColorForIcons(device.mode)}">{{device.number}}</div>
-<div [style]="getIdStyleForDisplayField(device.mode)" >
-  Ibra2001
+<div (mouseenter)="onDeviceMouseEntered(device)" class="circle-device-number" [ngStyle]="{'background': getBackgroundColorForIcons(device.mode)}">{{device.number}}</div>
+<div (mouseenter)="onMouseEntered()" [style]="getIdStyleForDisplayField(device.mode)" >
+  {{getDeviceDisplayName(device.type, device.mode, device.number)}}
 </div>

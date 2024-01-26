@@ -8,7 +8,6 @@ import { BookingService } from '../../shared/services/data-sharing/booking.servi
   styleUrl: './notification-modal.component.scss',
 })
 export class NotificationModalComponent implements OnDestroy {
-  // @Input() test?: any;
   constructor(private bookingService: BookingService) {}
 
   ngOnDestroy(): void {

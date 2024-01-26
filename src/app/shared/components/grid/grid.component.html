@@ -5,13 +5,11 @@
         <ng-container *ngIf="canDisplayDevice(row, col, deviceType.PC)">
           <app-device-icon
             [device]="getDevice(row, col, deviceType.PC)"
-            (click)="selectDevice(devicesPc[col])"
           ></app-device-icon>
         </ng-container>
         <ng-container *ngIf="canDisplayDevice(row, col, deviceType.PS)">
           <app-device-icon
             [device]="getDevice(row, col, deviceType.PS)"
-            (click)="selectDevice(devicesPs[col])"
           ></app-device-icon>
         </ng-container>
       </div>

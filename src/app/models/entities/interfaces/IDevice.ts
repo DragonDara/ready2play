@@ -5,6 +5,8 @@ export interface IDevice {
   type: Device;
   number: number;
   mode: DeviceMode;
+  macAddress: string,
+  ipAddress: string
   row: number,
   col: number,
 }

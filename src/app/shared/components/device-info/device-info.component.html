@@ -1,0 +1,17 @@
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container-cell">
+        <app-cell-card title="Место" [value]="device.number"></app-cell-card>
+        <app-cell-card title="Тип" [value]="deviceType[device.type]"></app-cell-card>
+        <app-cell-card title="MAC" [value]="device.macAddress"></app-cell-card>
+        <app-cell-card title="IP" [value]="device.ipAddress"></app-cell-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+ <button mat-button mat-dialog-close>Закрыть</button>
+</mat-dialog-actions>

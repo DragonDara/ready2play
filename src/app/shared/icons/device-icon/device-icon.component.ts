@@ -2,6 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Device } from '../../../models/enums/device.enum';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
+import { DeviceBookingsComponent } from '../../components/device-bookings/device-bookings.component';
+import { MatDialog } from '@angular/material/dialog';
+import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
+import { BookingService } from '../../services/data-sharing/booking.service';
+import { DeviceInfoComponent } from '../../components/device-info/device-info.component';
 
 @Component({
   selector: 'app-device-icon',
@@ -15,10 +20,28 @@ export class DeviceIconComponent {
     number: 0,
     mode: DeviceMode.Default,
     row: 0,
-    col: 0
+    col: 0,
+    ipAddress: '',
+    macAddress: ''
   };
+  selectedDeviceBookings: IBookingNotification[] = [];
+  private currentBooking: IBookingNotification = {} as IBookingNotification;
+  constructor(
+    private dialog: MatDialog,
+    private bookingService: BookingService,
+  ) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.bookingService.currentBookings.subscribe(
+      {
+        next: currentBooking => {
+          this.currentBooking = <IBookingNotification>currentBooking.at(0);
+        },
+        error: err => console.error(err)
+      }
+    )
+
+  }
 
   public getBackgroundColorForIcons(deviceMode: DeviceMode): string {
     switch (deviceMode) {
@@ -63,5 +86,43 @@ export class DeviceIconComponent {
       default:
         throw new Error(`Unhandled device mode: ${deviceMode}`)
     }
+  }
+
+  public getDeviceDisplayName(deviceType:Device, deviceMode: DeviceMode, deviceNumber: number): string {
+    switch(deviceMode) {
+      case DeviceMode.Available:
+        return 'Свободный';
+      case DeviceMode.InMaintenance:
+        return 'В обслуживании';
+      case DeviceMode.Reserved:
+        return this.currentBooking.userName;
+      default:
+        throw new Error(`Unhandled device mode: ${deviceMode}`)
+    }
+  }
+
+  onMouseEntered(){
+    this.selectedDeviceBookings = this.bookingService.getBookingsForDeviceTypeAndNumber(
+      this.device.type,
+      this.device.number,
+    );
+
+    const dialogRef = this.dialog.open(DeviceBookingsComponent, {
+      minWidth: '400px',
+      maxWidth: '400px',
+      data: {
+        deviceNumber: this.device.number,
+        selectedDeviceBookings: this.selectedDeviceBookings,
+      }, // Pass the selected device bookings as data
+    });
+  }
+
+  onDeviceMouseEntered(device: IDevice){
+    console.log(device)
+    const dialogRef = this.dialog.open(DeviceInfoComponent, {
+      minWidth: '400px',
+      maxWidth: '400px',
+      data: device, // Pass the selected device bookings as data
+    });
   }
 }

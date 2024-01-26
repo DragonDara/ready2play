@@ -34,6 +34,7 @@ import { DeviceIconComponent } from './shared/icons/device-icon/device-icon.comp
 import { DefaultModule } from './shared/layout/default/default.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DeviceBookingsComponent } from './shared/components/device-bookings/device-bookings.component';
+import { DeviceInfoComponent } from './shared/components/device-info/device-info.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DeviceBookingsComponent } from './shared/components/device-bookings/dev
     GridComponent,
     DeviceIconComponent,
     GridHeaderComponent,
-    DeviceBookingsComponent
+    DeviceBookingsComponent,
+    DeviceInfoComponent
   ],
   imports: [
     BrowserModule,
