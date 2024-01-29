@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,6 +35,7 @@ import { DefaultModule } from './shared/layout/default/default.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DeviceBookingsComponent } from './shared/components/device-bookings/device-bookings.component';
 import { DeviceInfoComponent } from './shared/components/device-info/device-info.component';
+import { ManualBookingFormComponent } from './features/manual-booking-form/manual-booking-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DeviceInfoComponent } from './shared/components/device-info/device-info
     DeviceIconComponent,
     GridHeaderComponent,
     DeviceBookingsComponent,
-    DeviceInfoComponent
+    DeviceInfoComponent,
+    ManualBookingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import { DeviceInfoComponent } from './shared/components/device-info/device-info
     MatMenuModule,
     MatListModule,
     MatSelectModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],

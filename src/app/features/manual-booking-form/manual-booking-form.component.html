@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Забронировать вручную</h1>
+<div mat-dialog-content fxLayout="row" fxLayoutGap="10px">
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Имя">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Кол-во персон">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Тариф">
+        <mat-option *ngFor="let tarif of tariffs" [value]="tarif">
+          {{tarif.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [(value)]="selectedZone" placeholder="Зона">
+        <mat-option *ngFor="let zone of zones" [value]="zone">
+          {{zone.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Номер">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Логин">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Время">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-button>Подтвердить</button>
+</div>

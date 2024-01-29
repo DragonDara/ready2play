@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Device } from '../../../models/enums/device.enum';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 import { Devices } from '../../components/grid/grid.component';
+import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class BookingService {
       zone: 'Standard room',
       tariff: 'Ночной',
       device: Devices[0],
+      status: BookingStatus.Pending,
       timeFrom: new Date(2023, 11, 12, 21, 30, 0),
       timeTo: new Date(2023, 11, 12, 23, 30, 0),
     },
@@ -25,6 +27,7 @@ export class BookingService {
       zone: 'Standard room',
       tariff: 'Ночной',
       device: Devices[0],
+      status: BookingStatus.Pending,
       timeFrom: new Date(2023, 11, 13, 10, 0, 0),
       timeTo: new Date(2023, 11, 13, 13, 0, 0),
     },
@@ -34,6 +37,8 @@ export class BookingService {
       zone: 'Playstation room',
       tariff: 'Ночной',
       device: Devices[3],
+      status: BookingStatus.Pending,
+
       timeFrom: new Date(2023, 11, 12, 21, 30, 0),
       timeTo: new Date(2023, 11, 12, 23, 30, 0),
     },
@@ -46,13 +51,31 @@ export class BookingService {
   }
 
   addBooking(booking: IBookingNotification) {
+    booking.device.mode = DeviceMode.Reserved;
+    booking.status = BookingStatus.Accepted;
     const currentBookings = this.bookingsSource.getValue();
     this.bookingsSource.next([...currentBookings, booking]);
   }
 
+  rejectBooking(bookingId: number) {
+    const currentBookings = this.bookingsSource.getValue();
+    const bookingIndex = currentBookings.findIndex(b => b.id === bookingId);
+    if (bookingIndex !== -1) {
+      currentBookings[bookingIndex].status = BookingStatus.Rejected;
+      this.bookingsSource.next(currentBookings);
+    } else {
+      console.error(`Booking with ID ${bookingId} not found.`);
+    }
+  }
   getBookingsForDeviceTypeAndNumber(type: Device, number: number): IBookingNotification[] {
     return this.bookingsSource
       .getValue()
       .filter((b) => b.device.type === type && b.device.number === number);
+  }
+
+  getAcceptedBookings(type: Device, number: number, bookingStatus: BookingStatus): IBookingNotification[] {
+    return this.bookingsSource
+      .getValue()
+      .filter((b) => b.device.type === type && b.device.number === number && b.status === bookingStatus);
   }
 }

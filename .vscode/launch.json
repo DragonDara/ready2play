@@ -5,25 +5,12 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "Attach to Chrome",
-        "port": 4200,
-        "request": "attach",
-        "type": "chrome",
-        "webRoot": "${workspaceFolder}"
-      },
-      {
-        "type": "vscode-edge-devtools.debug",
-        "request": "attach",
-        "name": "Attach to Microsoft Edge and open the Edge DevTools",
+        "name": "Launch Edge",
+        "request": "launch",
+        "type": "msedge",
         "url": "http://localhost:4200",
         "webRoot": "${workspaceFolder}"
       },
-        {
-            "type": "edge",
-            "request": "launch",
-            "name": "Launch Edge against localhost",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
-        }
-    ]
+    ],
+
 }

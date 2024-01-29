@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BookingService } from '../../services/data-sharing/booking.service';
 import { DeviceInfoComponent } from '../../components/device-info/device-info.component';
+import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 
 @Component({
   selector: 'app-device-icon',
@@ -102,9 +103,10 @@ export class DeviceIconComponent {
   }
 
   onMouseEntered(){
-    this.selectedDeviceBookings = this.bookingService.getBookingsForDeviceTypeAndNumber(
+    this.selectedDeviceBookings = this.bookingService.getAcceptedBookings(
       this.device.type,
       this.device.number,
+      BookingStatus.Accepted
     );
 
     const dialogRef = this.dialog.open(DeviceBookingsComponent, {

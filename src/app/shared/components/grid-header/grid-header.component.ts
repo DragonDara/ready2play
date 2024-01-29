@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ZoneService } from '../../services/zone.service';
 import { Zone } from '../../../models/entities/classes/Zone';
 import { Subscription } from 'rxjs';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
+import { GamingCentersService } from '../../services/gaming-centers.service';
 
 @Component({
   selector: 'app-grid-header',
@@ -17,13 +17,13 @@ export class GridHeaderComponent {
 
 
   constructor(
-    private zoneService: ZoneService,
+    private gamingCentersService: GamingCentersService,
     private deviceSharingService: DeviceSharingService,
     ) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.zoneService.getZonesByGamingCenterId(1)
+    this.subscription = this.gamingCentersService.getZonesByGamingCenterId(1)
       .subscribe({
         next: res => {
           this.zones = res;

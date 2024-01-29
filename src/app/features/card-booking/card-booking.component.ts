@@ -14,9 +14,22 @@ export class CardBookingComponent {
 
   createBooking(booking?: IBookingNotification) {
     if (booking) {
-      booking.device.mode = DeviceMode.Reserved;
       this.bookingService.addBooking(booking);
       // Optionally, clear the booking form or navigate away
+
+      // Find the index of the booking in the array
+      const index = this.bookingService.bookingNotifications.findIndex((b) => b.id === booking.id);
+
+      // If found, remove the booking from the array
+      if (index !== -1) {
+        this.bookingService.bookingNotifications.splice(index, 1);
+      }
+    }
+  }
+
+  rejectBooking(booking?: IBookingNotification) {
+    if(booking) {
+      this.bookingService.rejectBooking(booking.id)
 
       // Find the index of the booking in the array
       const index = this.bookingService.bookingNotifications.findIndex((b) => b.id === booking.id);

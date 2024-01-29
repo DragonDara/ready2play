@@ -5,6 +5,7 @@ import { routeHeaderTextDictionary } from '../../constants/route-header-text-dic
 import { HeaderService } from '../../services/header.service';
 import { filter, map, startWith } from 'rxjs';
 import { NotificationModalComponent } from '../../../features/notification-modal/notification-modal.component';
+import { ManualBookingFormComponent } from '../../../features/manual-booking-form/manual-booking-form.component';
 
 @Component({
   selector: 'app-header',
@@ -41,5 +42,11 @@ export class HeaderComponent implements OnInit {
       panelClass: 'modal-notification',
       position: { top: '70px', right: '220px' },
     });
+  }
+
+  onManualBooking() {
+    this.dialog.open(ManualBookingFormComponent, {
+      panelClass: 'manual-class'
+    })
   }
 }

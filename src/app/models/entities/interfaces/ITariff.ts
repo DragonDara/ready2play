@@ -1,5 +1,6 @@
-import { Tariff } from "../../enums/Tariff.enum";
+import { TariffEnum } from "../../enums/tariff.enum";
 
 export interface ITariff {
-  name: Tariff
+  id: number;
+  name: TariffEnum
 }
