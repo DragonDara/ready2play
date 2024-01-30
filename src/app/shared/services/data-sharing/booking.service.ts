@@ -3,8 +3,8 @@ import { IBookingNotification } from '../../../models/entities/interfaces/IBooki
 import { BehaviorSubject } from 'rxjs';
 import { Device } from '../../../models/enums/device.enum';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
-import { Devices } from '../../components/grid/grid.component';
 import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
+import { Devices } from '../../components/grid/grid.component';
 
 @Injectable({
   providedIn: 'root',

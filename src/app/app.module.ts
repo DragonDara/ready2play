@@ -36,6 +36,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { DeviceBookingsComponent } from './shared/components/device-bookings/device-bookings.component';
 import { DeviceInfoComponent } from './shared/components/device-info/device-info.component';
 import { ManualBookingFormComponent } from './features/manual-booking-form/manual-booking-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ManualBookingFormComponent } from './features/manual-booking-form/manua
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     DefaultModule,
     BrowserAnimationsModule,

@@ -3,6 +3,7 @@ import { Zone } from '../../../models/entities/classes/Zone';
 import { Subscription } from 'rxjs';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 import { GamingCentersService } from '../../services/gaming-centers.service';
+import { DevicesService } from '../../services/devices.service';
 
 @Component({
   selector: 'app-grid-header',

@@ -5,12 +5,15 @@ export class Tariff implements ITariff {
   id: number;
   name: TariffEnum;
 
+  displayName: string;
+
   /**
    *
    */
-  constructor(id: number, name: TariffEnum) {
+  constructor(id: number, name: TariffEnum, displayName: string) {
     this.id = id;
     this.name = name;
+    this.displayName = displayName;
   }
 
 }
