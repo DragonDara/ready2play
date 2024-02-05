@@ -47,21 +47,21 @@ export class ManualBookingFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const getZones = this.gamingCentersService.getZonesByGamingCenterId(1);
-    const getTariffs = this.gamingCentersService.getTariffsByGamingCenterId(1);
-    this.subscription = forkJoin([getTariffs, getZones]).subscribe({
-      next: (res) => {
-        this.tariffs = res[0];
-        this.zones = res[1];
-      },
-      error: (err) => console.error(err),
-    });
+    // const getZones = this.gamingCentersService.getZonesByGamingCenterId(1);
+    // const getTariffs = this.gamingCentersService.getTariffsByGamingCenterId(1);
+    // this.subscription = forkJoin([getTariffs, getZones]).subscribe({
+    //   next: (res) => {
+    //     this.tariffs = res[0];
+    //     this.zones = res[1];
+    //   },
+    //   error: (err) => console.error(err),
+    // });
 
-    this.form.controls["zone"].valueChanges.subscribe({
-      next: zoneId => {
-        this.devices = this.deviceService.getDevicesByZoneId(zoneId)
-      }
-    })
+    // this.form.controls["zone"].valueChanges.subscribe({
+    //   next: zoneId => {
+    //     this.devices = this.deviceService.getDevicesByZoneId(zoneId)
+    //   }
+    // })
   }
 
   onSubmit() {
