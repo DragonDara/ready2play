@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ready2play-8c017": {
+      "hosting": {
+        "reverse-place-admin-panel-web": [
+          "ready2play-8c017"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ready2play-8c017"
+  }
+}

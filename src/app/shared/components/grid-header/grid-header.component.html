@@ -2,7 +2,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Зоны</mat-label>
       <mat-select [(value)]="selectedZone" (selectionChange)="getSelectedOption()">
-        <mat-option *ngFor="let zone of zones" [value]="zone">
+        <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
           {{zone.name}}
         </mat-option>
       </mat-select>

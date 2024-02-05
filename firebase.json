@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "reverse-place-admin-panel-web",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

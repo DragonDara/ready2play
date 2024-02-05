@@ -1,31 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Zone } from '../../models/entities/classes/Zone';
-import { IZone } from '../../models/entities/interfaces/IZone';
-import { ZoneEnum } from '../../models/enums/zone.enum';
-import { ITariff } from '../../models/entities/interfaces/ITariff';
-import { TariffEnum } from '../../models/enums/tariff.enum';
-import { IGamingCenter } from '../../models/entities/interfaces/IGamingCenter';
+import { collectionData, docData } from '@angular/fire/firestore';
+import { Firestore, collection } from 'firebase/firestore';
+import { Observable, concatMap, map, mergeMap, of, take, toArray } from 'rxjs';
 import { Tariff } from '../../models/entities/classes/Tariff';
-import { DevicesService } from './devices.service';
+import { Zone } from '../../models/entities/classes/Zone';
+import { IGamingCenter } from '../../models/entities/interfaces/IGamingCenter';
+import { ITariff } from '../../models/entities/interfaces/ITariff';
+import { IZone } from '../../models/entities/interfaces/IZone';
+import { TariffEnum } from '../../models/enums/tariff.enum';
+import { ZoneEnum } from '../../models/enums/zone.enum';
 import { Devices } from '../components/grid/grid.component';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class GamingCentersService {
   constructor(
+    private firestore: Firestore,
   ) {}
 
   getZonesByGamingCenterId(gamingCenterId: number): Observable<Zone[]> {
-    // Filter the zones by gaming center id
-    const filteredZones = Zones.filter((zone) => zone.gamingCenterId === gamingCenterId);
-    // Map the filtered zones to Zone class instances
-    const mappedZones = filteredZones.map(
-      (zone) => new Zone(zone.id, zone.name, zone.devices, zone.gamingCenterId),
-    );
-    // Return a mock observable with the mapped zones
-    return of(mappedZones);
+    const zonesPerGamingCenter = collection(this.firestore, 'zonesPerGamingCenter');
+    return collectionData(zonesPerGamingCenter)
+    .pipe(
+      concatMap(zonesPerGamingCenter => zonesPerGamingCenter.map(z => z["zone"])),
+      mergeMap(zonesDocReference => docData(zonesDocReference, {idField: 'id'})),
+      map(x =>  new Zone(x!["id"], x!["name"], Devices.slice(0,2), 1)),
+      take(2),
+      toArray(),
+    )
   }
 
   getTariffsByGamingCenterId(gamingCenterId: number): Observable<Tariff[]> {

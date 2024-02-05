@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +37,11 @@ import { DeviceBookingsComponent } from './shared/components/device-bookings/dev
 import { DeviceInfoComponent } from './shared/components/device-info/device-info.component';
 import { ManualBookingFormComponent } from './features/manual-booking-form/manual-booking-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../environments/environment.dev';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { GamingCentersService } from './shared/services/gaming-centers.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ManualBookingFormComponent
   ],
   imports: [
+    provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -78,9 +85,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatListModule,
     MatSelectModule,
     MatButtonToggleModule,
-    MatInputModule
+    MatInputModule,
+
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

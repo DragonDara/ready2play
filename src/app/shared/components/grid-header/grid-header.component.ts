@@ -1,38 +1,40 @@
 import { Component } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { Observable, take, tap } from 'rxjs';
 import { Zone } from '../../../models/entities/classes/Zone';
-import { Subscription } from 'rxjs';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 import { GamingCentersService } from '../../services/gaming-centers.service';
-import { DevicesService } from '../../services/devices.service';
 
 @Component({
   selector: 'app-grid-header',
   templateUrl: './grid-header.component.html',
-  styleUrl: './grid-header.component.scss'
+  styleUrl: './grid-header.component.scss',
+  providers: [
+    {
+      provide: GamingCentersService,
+      useClass: GamingCentersService,
+      deps: [Firestore]
+    }
+  ]
 })
 export class GridHeaderComponent {
-  public zones!: Zone[];
-  private subscription!: Subscription;
+  public zones$!: Observable<Zone[]>;
 
-  public selectedZone!: Zone
-
-
+  public selectedZone!: Zone;
   constructor(
     private gamingCentersService: GamingCentersService,
     private deviceSharingService: DeviceSharingService,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.gamingCentersService.getZonesByGamingCenterId(1)
-      .subscribe({
-        next: res => {
-          this.zones = res;
-          this.selectedZone = this.zones[0];
+    this.zones$ = this.gamingCentersService.getZonesByGamingCenterId(1)
+      .pipe(
+        tap(zones => {
+          this.selectedZone = zones[0];
           this.deviceSharingService.setDevices(this.selectedZone.devices)
-        },
-        error: err => console.error(err)
-      })
+        })
+      )
 
   }
 
@@ -41,6 +43,5 @@ export class GridHeaderComponent {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
