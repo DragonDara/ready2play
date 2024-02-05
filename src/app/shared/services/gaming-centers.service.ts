@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collectionData, docData } from '@angular/fire/firestore';
-import { DocumentReference, Firestore, collection, collectionGroup, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { Observable, concatMap, from, map, mergeMap, of, single, switchMap, take, tap, toArray } from 'rxjs';
+import { DocumentReference, Firestore, collection, collectionGroup, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { Observable, concatMap, first, from, map, mergeMap, of, single, switchMap, take, tap, toArray } from 'rxjs';
 import { Tariff } from '../../models/entities/classes/Tariff';
 import { Zone } from '../../models/entities/classes/Zone';
 import { IGamingCenter } from '../../models/entities/interfaces/IGamingCenter';
@@ -18,36 +18,32 @@ export class GamingCentersService {
     private firestore: Firestore,
   ) {}
 
-  getZoneByZoneRef(zoneRef: DocumentReference): Observable<string> {
-    return docData(zoneRef)
-      .pipe(
-        map(z => z!["name"])
-      )
+  getZoneByZoneId(zoneId: string) {
+    return doc(this.firestore, "zones", zoneId);
   }
 
-  getZonesIdsByGamingCenterId(gamingCenterId: number) : Observable<{id: string, zoneRef: DocumentReference}> {
-    const zonesPerGamingCenter = collection(this.firestore, 'zonesPerGamingCenter')
-    const result = collectionData(zonesPerGamingCenter, { idField : 'id'})
-    .pipe(
-      map(zones => {
-        return zones.map(zone => {
-          const z = {
-            id: zone.id,
-            zoneRef: zone["zone"]
-          }
-          return z
-        })
-      }),
-    )
-    return result;
+  async getZonesIdsByGamingCenterId(gamingCenterId: number) : Promise<string[]> {
+    const zones: string[] = []
+    const zonesPerGamingCenterRef = collection(this.firestore, "zonesPerGamingCenter");
+    const q = query(zonesPerGamingCenterRef, where("gamingCenterId", "==", gamingCenterId.toString()));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const zoneId = doc.get('zoneId')
+      zones.push(zoneId)
+    });
+
+    return zones;
   }
 
-  getDevicesByZoneId(zoneId: string): Observable<IDevice[]>{
+  getZoneWithDevicesByZoneId(zoneId: string): Observable<Zone>{
     const devicesByZoneId = collection(this.firestore, 'zonesPerGamingCenter', zoneId, 'devices');
     const result = collectionData(devicesByZoneId)
       .pipe(
         map(d1 => {
-          return d1.map(d => {
+          const zone = new Zone()
+          const devices = d1.map(d => {
+            const zone = new Zone()
             const z: IDevice = {
               number: d["number"],
               row: d["row"],
@@ -59,7 +55,14 @@ export class GamingCentersService {
             }
             return z
           })
+          zone.id = +zoneId;
+          zone.devices = devices
+          zone.gamingCenterId = 1
+          const zoneName = this.getZoneByZoneId(zoneId)
+          onSnapshot(zoneName, snap => zone.name = snap.get('name'))
+          return zone
         }),
+        first()
       )
     return result
   }

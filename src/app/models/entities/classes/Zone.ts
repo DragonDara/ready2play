@@ -3,16 +3,13 @@ import { IDevice } from "../interfaces/IDevice";
 import { IZone } from "../interfaces/IZone";
 
 export class Zone implements IZone {
-  id: number;
-  name: string;
-  devices: IDevice[];
+  id!: number;
+  name!: string;
+  devices!: IDevice[];
 
-  gamingCenterId: number
+  gamingCenterId!: number
 
-  constructor(id: number, name: string, devices: IDevice[], gamingCenterId: number) {
-    this.id = id;
-    this.name = name;
-    this.devices = devices;
-    this.gamingCenterId = gamingCenterId
+  constructor() {
+
   }
 }
