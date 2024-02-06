@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Device } from '../../../models/enums/device.enum';
+import { DeviceEnum } from '../../../models/enums/device.enum';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 import { DeviceBookingsComponent } from '../../components/device-bookings/device-bookings.component';
@@ -15,9 +15,9 @@ import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
   styleUrls: ['./device-icon.component.css'],
 })
 export class DeviceIconComponent {
-  public deviceType: typeof Device = Device;
+  public deviceType: typeof DeviceEnum = DeviceEnum;
   @Input() device: IDevice = {
-    type: Device.Default,
+    type: DeviceEnum.Default,
     number: 0,
     mode: DeviceMode.Default,
     row: 0,
@@ -89,7 +89,7 @@ export class DeviceIconComponent {
     }
   }
 
-  public getDeviceDisplayName(deviceType:Device, deviceMode: DeviceMode, deviceNumber: number): string {
+  public getDeviceDisplayName(deviceType: DeviceEnum, deviceMode: DeviceMode, deviceNumber: number): string {
     switch(deviceMode) {
       case DeviceMode.Available:
         return 'Свободный';

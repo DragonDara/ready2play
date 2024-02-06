@@ -1,4 +1,4 @@
-export enum Device {
+export enum DeviceEnum {
   Default,
   PC,
   PS,

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { Observable, combineLatest, concatAll, forkJoin, from, map, mergeAll, mergeMap, of, single, switchMap, take, tap, toArray } from 'rxjs';
+import { Observable, combineLatest, tap } from 'rxjs';
 import { Zone } from '../../../models/entities/classes/Zone';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 import { GamingCentersService } from '../../services/gaming-centers.service';
-import { IDevice } from '../../../models/entities/interfaces/IDevice';
-import { onSnapshot } from 'firebase/firestore';
 
 @Component({
   selector: 'app-grid-header',

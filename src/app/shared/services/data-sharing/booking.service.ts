@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BehaviorSubject } from 'rxjs';
-import { Device } from '../../../models/enums/device.enum';
+import { DeviceEnum } from '../../../models/enums/device.enum';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 import { Devices } from '../../components/grid/grid.component';
@@ -67,13 +67,13 @@ export class BookingService {
       console.error(`Booking with ID ${bookingId} not found.`);
     }
   }
-  getBookingsForDeviceTypeAndNumber(type: Device, number: number): IBookingNotification[] {
+  getBookingsForDeviceTypeAndNumber(type: DeviceEnum, number: number): IBookingNotification[] {
     return this.bookingsSource
       .getValue()
       .filter((b) => b.device.type === type && b.device.number === number);
   }
 
-  getAcceptedBookings(type: Device, number: number, bookingStatus: BookingStatus): IBookingNotification[] {
+  getAcceptedBookings(type: DeviceEnum, number: number, bookingStatus: BookingStatus): IBookingNotification[] {
     return this.bookingsSource
       .getValue()
       .filter((b) => b.device.type === type && b.device.number === number && b.status === bookingStatus);

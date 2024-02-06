@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collectionData, docData } from '@angular/fire/firestore';
+import { collectionData, docData, docSnapshots } from '@angular/fire/firestore';
 import { DocumentReference, Firestore, collection, collectionGroup, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { Observable, concatMap, first, from, map, mergeMap, of, single, switchMap, take, tap, toArray } from 'rxjs';
 import { Tariff } from '../../models/entities/classes/Tariff';
@@ -20,6 +20,18 @@ export class GamingCentersService {
 
   getZoneByZoneId(zoneId: string) {
     return doc(this.firestore, "zones", zoneId);
+  }
+
+  private getZoneByZoneId$(zone: Zone) {
+    return docSnapshots(
+      doc(this.firestore, "zones", zone.id.toString())
+    )
+    .pipe(
+      map(z => {
+        zone.name = z.get('name')
+        return zone
+      })
+    )
   }
 
   async getZonesIdsByGamingCenterId(gamingCenterId: number) : Promise<string[]> {
@@ -58,10 +70,9 @@ export class GamingCentersService {
           zone.id = +zoneId;
           zone.devices = devices
           zone.gamingCenterId = 1
-          const zoneName = this.getZoneByZoneId(zoneId)
-          onSnapshot(zoneName, snap => zone.name = snap.get('name'))
           return zone
         }),
+        switchMap(zone => this.getZoneByZoneId$(zone)),
         first()
       )
     return result

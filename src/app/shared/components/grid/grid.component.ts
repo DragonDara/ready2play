@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Device } from '../../../models/enums/device.enum';
+import { DeviceEnum } from '../../../models/enums/device.enum';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { BookingService } from '../../services/data-sharing/booking.service';
@@ -14,7 +14,7 @@ import { DeviceSharingService } from '../../services/data-sharing/device-sharing
   styleUrls: ['./grid.component.css'],
 })
 export class GridComponent implements OnInit {
-  public deviceType: typeof Device = Device;
+  public deviceType: typeof DeviceEnum = DeviceEnum;
 
   public devicesPc!: IDevice[];
   public devicesPs!: IDevice[];
@@ -33,8 +33,8 @@ export class GridComponent implements OnInit {
     this.deviceSharingService.getDevices()
       .subscribe({
         next: res => {
-          this.devicesPc = res.filter((x) => x.type === Device.PC);
-          this.devicesPs = res.filter((x) => x.type === Device.PS);
+          this.devicesPc = res.filter((x) => x.type === DeviceEnum.PC);
+          this.devicesPs = res.filter((x) => x.type === DeviceEnum.PS);
         },
         error: err => console.error(err)
       })
@@ -47,7 +47,7 @@ export class GridComponent implements OnInit {
       .map((x, i) => i);
   }
 
-  public canDisplayDevice(row: number, col: number, type: Device): boolean {
+  public canDisplayDevice(row: number, col: number, type: DeviceEnum): boolean {
     if (type === this.deviceType.PC) {
       return this.devicesPc.some(devicePc => devicePc.row === row && devicePc.col === col)
     }
@@ -59,7 +59,7 @@ export class GridComponent implements OnInit {
     throw new Error(`Unknown type of device ${type.toString()}`)
   }
 
-  public getDevice(row: number, col: number, type: Device): IDevice
+  public getDevice(row: number, col: number, type: DeviceEnum): IDevice
    {
     let device: IDevice | undefined;
     if (type === this.deviceType.PC) {
@@ -78,7 +78,7 @@ export class GridComponent implements OnInit {
 export const Devices: IDevice[] = [
   {
     number: 1,
-    type: Device.PC,
+    type: DeviceEnum.PC,
     mode: DeviceMode.Available,
     row: 1,
     col: 1,
@@ -87,7 +87,7 @@ export const Devices: IDevice[] = [
   },
   {
     number: 2,
-    type: Device.PC,
+    type: DeviceEnum.PC,
     mode: DeviceMode.Available,
     row: 1,
     col: 2,
@@ -96,7 +96,7 @@ export const Devices: IDevice[] = [
   },
   {
     number: 3,
-    type: Device.PC,
+    type: DeviceEnum.PC,
     mode: DeviceMode.Available,
     row: 2,
     col: 1,
@@ -105,7 +105,7 @@ export const Devices: IDevice[] = [
   },
   {
     number: 1,
-    type: Device.PS,
+    type: DeviceEnum.PS,
     mode: DeviceMode.Available,
     row: 3,
     col: 1,

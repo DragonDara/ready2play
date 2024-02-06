@@ -1,29 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { Zone } from '../../models/entities/classes/Zone';
-import { Subscription, forkJoin } from 'rxjs';
-import { GamingCentersService } from '../../shared/services/gaming-centers.service';
-import { Tariff } from '../../models/entities/classes/Tariff';
+import { Firestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, Subscription, combineLatest } from 'rxjs';
+import { Tariff } from '../../models/entities/classes/Tariff';
+import { Zone } from '../../models/entities/classes/Zone';
 import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
-import { BookingStatus } from '../../models/enums/bookingStatus.enum';
-import { DeviceSharingService } from '../../shared/services/data-sharing/device-sharing.service';
-import { DevicesService } from '../../shared/services/devices.service';
 import { IDevice } from '../../models/entities/interfaces/IDevice';
-import { Device } from '../../models/enums/device.enum';
-import { DeviceMode } from '../../models/enums/deviceMode.enum';
+import { BookingStatus } from '../../models/enums/bookingStatus.enum';
 import { BookingService } from '../../shared/services/data-sharing/booking.service';
+import { DevicesService } from '../../shared/services/devices.service';
+import { GamingCentersService } from '../../shared/services/gaming-centers.service';
+import { Device } from '../../models/entities/classes/Device';
+import { DeviceEnum } from '../../models/enums/device.enum';
 
 @Component({
   selector: 'app-manual-booking-form',
   templateUrl: './manual-booking-form.component.html',
   styleUrls: ['./manual-booking-form.component.scss'],
+  providers: [
+    {
+      provide: GamingCentersService,
+      useClass: GamingCentersService,
+      deps: [Firestore]
+    },
+    {
+      provide: DevicesService,
+      useClass: DevicesService,
+      deps: [Firestore]
+    }
+  ]
 })
 export class ManualBookingFormComponent implements OnInit {
-  public deviceType: typeof Device = Device;
+  public deviceType: typeof DeviceEnum = DeviceEnum;
   public form: FormGroup;
-  public zones!: Zone[];
+  public zones$!: Observable<Zone[]>;
   public tariffs!: Tariff[];
-  public devices!: IDevice[];
+  public devices$!: Observable<Device[]>;
 
   private subscription!: Subscription;
   public selectedZone!: Zone;
@@ -46,22 +58,19 @@ export class ManualBookingFormComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    // const getZones = this.gamingCentersService.getZonesByGamingCenterId(1);
-    // const getTariffs = this.gamingCentersService.getTariffsByGamingCenterId(1);
-    // this.subscription = forkJoin([getTariffs, getZones]).subscribe({
-    //   next: (res) => {
-    //     this.tariffs = res[0];
-    //     this.zones = res[1];
-    //   },
-    //   error: (err) => console.error(err),
-    // });
+  async ngOnInit() {
+    const zoneIds = await this.gamingCentersService.getZonesIdsByGamingCenterId(1);
+    const zonesWithDevices$: Observable<Zone>[] = []
+    zoneIds.forEach(id => {
+      zonesWithDevices$.push(this.gamingCentersService.getZoneWithDevicesByZoneId(id))
+    })
+    this.zones$ = combineLatest(zonesWithDevices$)
 
-    // this.form.controls["zone"].valueChanges.subscribe({
-    //   next: zoneId => {
-    //     this.devices = this.deviceService.getDevicesByZoneId(zoneId)
-    //   }
-    // })
+    this.form.controls["zone"].valueChanges.subscribe({
+      next: (zoneId: number) => {
+        this.devices$ = this.deviceService.getDevicesByZoneId(zoneId.toString())
+      }
+    })
   }
 
   onSubmit() {
@@ -71,7 +80,7 @@ export class ManualBookingFormComponent implements OnInit {
       status: BookingStatus.Accepted,
       zone: this.form.value["zone"],
       tariff: this.form.value["tariff"],
-      timeFrom: new Date(this.form.value["timeFrom"]),
+      timeFrom: new Date(this.form.value["timeFrom"]), //2024-02-07 09:00
       timeTo: new Date(this.form.value["timeTo"]),
       device: this.form.value["devices"]
 
@@ -81,6 +90,6 @@ export class ManualBookingFormComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
   }
 }

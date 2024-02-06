@@ -17,7 +17,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select [(value)]="selectedZone" placeholder="Зона" formControlName="zone">
-          <mat-option *ngFor="let zone of zones" [value]="zone.id">
+          <mat-option *ngFor="let zone of zones$ | async" [value]="zone.id">
             {{zone.name}}
           </mat-option>
         </mat-select>
@@ -32,7 +32,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Устройства" formControlName="devices">
-          <mat-option *ngFor="let device of devices" [value]="device">
+          <mat-option *ngFor="let device of devices$ | async" [value]="device">
             {{device.number}} {{deviceType[device.type]}}
           </mat-option>
         </mat-select>
