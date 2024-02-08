@@ -78,60 +78,11 @@ export class GamingCentersService {
     return result
   }
 
-  getTariffsByGamingCenterId(gamingCenterId: number): Observable<Tariff[]> {
-    const filteredTariffs = GamingCenters.find((gc) => gc.id === gamingCenterId)!.tariffs;
-    const mappedTariffs = filteredTariffs.map((t) => new Tariff(t.id, t.name, t.displayName));
-    return of(mappedTariffs);
-  }
-
 }
 
-export const Zones: IZone[] = [
-  {
-    id: 1,
-    name: ZoneEnum.Bootcamp,
-    devices: Devices.slice(0, 2), // assign first two device to bootcamp
-    gamingCenterId: 1,
-  },
-  {
-    id: 2,
-    name: ZoneEnum.Standard,
-    devices: Devices.slice(-2), // assing last two elements to standard
-    gamingCenterId: 1,
-  },
-];
 
-export const Tariffs: ITariff[] = [
-  {
-    id: 1,
-    name: TariffEnum.one,
-    displayName: '1 час'
-  },
-  {
-    id: 2,
-    name: TariffEnum.twoPlusOne,
-    displayName: '2+1 час'
-  },
-  {
-    id: 3,
-    name: TariffEnum.threePlusTwo,
-    displayName: '3+2 час'
-  },
-  {
-    id: 4,
-    name: TariffEnum.Night,
-    displayName: 'Ночь'
-  },
-];
 
-export const GamingCenters: IGamingCenter[] = [
-  {
-    id: 1,
-    name: 'Meta',
-    personnel: undefined,
-    zones: Zones,
-    tariffs: Tariffs,
-  },
-];
+
+
 
 
