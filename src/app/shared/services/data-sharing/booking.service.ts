@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BookingNotification } from '../../../models/entities/classes/BookingNotification';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
-import { BehaviorSubject } from 'rxjs';
+import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 import { DeviceEnum } from '../../../models/enums/device.enum';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
-import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 import { Devices } from '../../components/grid/grid.component';
+import { TariffsService } from '../tariffs.service';
 
 @Injectable({
   providedIn: 'root',
+  deps: [Firestore]
 })
 export class BookingService {
   public bookingNotifications: IBookingNotification[] = [
@@ -47,7 +51,26 @@ export class BookingService {
   private bookingsSource = new BehaviorSubject<IBookingNotification[]>([]);
   currentBookings = this.bookingsSource.asObservable();
 
-  constructor() {
+  constructor(
+    private firestore: Firestore,
+    private tariffsService: TariffsService
+  ) {
+  }
+
+  getBookingsByGamingCenterId(gamingCenterId: number): Observable<BookingNotification[]> {
+    const bookingsRef = collection(this.firestore, "bookings");
+    const q = query(bookingsRef, where("gamingCenterId", "==", gamingCenterId.toString()));
+
+    return collectionData(q).pipe(
+      map(actions => actions.map(a => {
+        const tariffName = this.tariffsService.getTariffNameByIdFromMemory(a["tariffId"]);
+        console.log(tariffName);
+        const booking = new BookingNotification(a["id"], a["username"], a["status"], a["zoneId"], a["deviceId"], new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
+        return booking;
+        }
+      )
+      )
+    )
   }
 
   addBooking(booking: IBookingNotification) {

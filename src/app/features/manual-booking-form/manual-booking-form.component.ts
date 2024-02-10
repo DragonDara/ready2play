@@ -13,6 +13,8 @@ import { GamingCentersService } from '../../shared/services/gaming-centers.servi
 import { Device } from '../../models/entities/classes/Device';
 import { DeviceEnum } from '../../models/enums/device.enum';
 import { TariffsService } from '../../shared/services/tariffs.service';
+import { ITariff } from '../../models/entities/interfaces/ITariff';
+import { IZone } from '../../models/entities/interfaces/IZone';
 
 @Component({
   selector: 'app-manual-booking-form',
@@ -70,8 +72,8 @@ export class ManualBookingFormComponent implements OnInit {
     this.tariffs$ = this.tariffsService.getTariffsByGamingCenterId(1);
 
     this.form.controls["zone"].valueChanges.subscribe({
-      next: (zoneId: number) => {
-        this.devices$ = this.deviceService.getDevicesByZoneId(zoneId.toString())
+      next: (zone: IZone) => {
+        this.devices$ = this.deviceService.getDevicesByZoneId(zone.id.toString())
       }
     })
   }
@@ -81,8 +83,8 @@ export class ManualBookingFormComponent implements OnInit {
       id: 10,
       userName: this.form.value["name"],
       status: BookingStatus.Accepted,
-      zone: this.form.value["zone"],
-      tariff: this.form.value["tariff"],
+      zone: (this.form.value["zone"] as IZone).name,
+      tariff: (this.form.value["tariff"] as ITariff).displayName,
       timeFrom: new Date(this.form.value["timeFrom"]), //2024-02-07 09:00
       timeTo: new Date(this.form.value["timeTo"]),
       device: this.form.value["devices"]

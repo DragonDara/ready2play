@@ -10,14 +10,14 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Тариф" formControlName="tariff">
-          <mat-option *ngFor="let tarif of tariffs$ | async" [value]="tarif.id">
+          <mat-option *ngFor="let tarif of tariffs$ | async" [value]="tarif">
             {{tarif.displayName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-select [(value)]="selectedZone" placeholder="Зона" formControlName="zone">
-          <mat-option *ngFor="let zone of zones$ | async" [value]="zone.id">
+          <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
             {{zone.name}}
           </mat-option>
         </mat-select>
