@@ -3,7 +3,7 @@ import { IBookingNotification } from '../../models/entities/interfaces/IBookingN
 import { BookingService } from '../../shared/services/data-sharing/booking.service';
 import { Firestore } from '@angular/fire/firestore';
 import { BookingNotification } from '../../models/entities/classes/BookingNotification';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-notification-modal',
@@ -16,11 +16,13 @@ export class NotificationModalComponent implements OnDestroy {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
-    this.bookingNotifications$ = this.bookingService.getBookingsByGamingCenterId(1);
+    this.bookingNotifications$ = this.bookingService.getBookingsByGamingCenterId(1)
 
   }
 
-
+  toDeleteBookingdFromModal(booking: BookingNotification): void {
+    this.bookingNotifications$ = this.bookingService.currentBookings
+  }
 
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');

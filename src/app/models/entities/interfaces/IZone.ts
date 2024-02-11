@@ -1,10 +1,7 @@
-import { ZoneEnum } from "../../enums/zone.enum";
 import { IDevice } from "./IDevice";
+import { IZoneNameable } from "./IZoneNameable";
 
-export interface IZone {
-  id: number,
-  name: string,
+export interface IZone extends IZoneNameable{
 
   devices: IDevice[],
-  gamingCenterId: number
 }

@@ -20,24 +20,11 @@ import { IZone } from '../../models/entities/interfaces/IZone';
   selector: 'app-manual-booking-form',
   templateUrl: './manual-booking-form.component.html',
   styleUrls: ['./manual-booking-form.component.scss'],
-  providers: [
-    {
-      provide: GamingCentersService,
-      useClass: GamingCentersService,
-      deps: [Firestore]
-    },
-    {
-      provide: DevicesService,
-      useClass: DevicesService,
-      deps: [Firestore]
-    }
-  ]
 })
 export class ManualBookingFormComponent implements OnInit {
   public deviceType: typeof DeviceEnum = DeviceEnum;
   public form: FormGroup;
   public zones$!: Observable<Zone[]>;
-  public tariffs$!: Observable<Tariff[]>;
   public devices$!: Observable<Device[]>;
 
   private subscription!: Subscription;
@@ -47,7 +34,7 @@ export class ManualBookingFormComponent implements OnInit {
     private fb: FormBuilder,
     private deviceService: DevicesService,
     private bookingService: BookingService,
-    private tariffsService: TariffsService,
+    public tariffsService: TariffsService,
   ) {
     this.form = this.fb.group({
       name: [''],
@@ -69,7 +56,6 @@ export class ManualBookingFormComponent implements OnInit {
       zonesWithDevices$.push(this.gamingCentersService.getZoneWithDevicesByZoneId(id))
     })
     this.zones$ = combineLatest(zonesWithDevices$)
-    this.tariffs$ = this.tariffsService.getTariffsByGamingCenterId(1);
 
     this.form.controls["zone"].valueChanges.subscribe({
       next: (zone: IZone) => {

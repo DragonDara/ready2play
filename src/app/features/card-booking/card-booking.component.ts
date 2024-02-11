@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookingService } from '../../shared/services/data-sharing/booking.service';
 import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
 import { DeviceMode } from '../../models/enums/deviceMode.enum';
+import { BookingNotification } from '../../models/entities/classes/BookingNotification';
 
 @Component({
   selector: 'app-card-booking',
@@ -10,20 +11,14 @@ import { DeviceMode } from '../../models/enums/deviceMode.enum';
 })
 export class CardBookingComponent {
   @Input() booking?: IBookingNotification;
+  @Output() bookingToDelete = new EventEmitter<BookingNotification>();
   constructor(private bookingService: BookingService) {}
 
   createBooking(booking?: IBookingNotification) {
     if (booking) {
       this.bookingService.addBooking(booking);
-      // Optionally, clear the booking form or navigate away
+      this.bookingToDelete.emit(booking)
 
-      // Find the index of the booking in the array
-      const index = this.bookingService.bookingNotifications.findIndex((b) => b.id === booking.id);
-
-      // If found, remove the booking from the array
-      if (index !== -1) {
-        this.bookingService.bookingNotifications.splice(index, 1);
-      }
     }
   }
 
@@ -32,12 +27,12 @@ export class CardBookingComponent {
       this.bookingService.rejectBooking(booking.id)
 
       // Find the index of the booking in the array
-      const index = this.bookingService.bookingNotifications.findIndex((b) => b.id === booking.id);
+      // const index = this.bookingService.bookingNotifications.findIndex((b) => b.id === booking.id);
 
-      // If found, remove the booking from the array
-      if (index !== -1) {
-        this.bookingService.bookingNotifications.splice(index, 1);
-      }
+      // // If found, remove the booking from the array
+      // if (index !== -1) {
+      //   this.bookingService.bookingNotifications.splice(index, 1);
+      // }
     }
   }
 }

@@ -4,18 +4,12 @@ import { Observable, combineLatest, tap } from 'rxjs';
 import { Zone } from '../../../models/entities/classes/Zone';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 import { GamingCentersService } from '../../services/gaming-centers.service';
+import { ZoneName } from '../../../models/entities/classes/ZoneName';
 
 @Component({
   selector: 'app-grid-header',
   templateUrl: './grid-header.component.html',
   styleUrl: './grid-header.component.scss',
-  providers: [
-    {
-      provide: GamingCentersService,
-      useClass: GamingCentersService,
-      deps: [Firestore]
-    }
-  ]
 })
 export class GridHeaderComponent {
   public zonesWithDevices$!: Observable<Zone[]>
@@ -36,6 +30,7 @@ export class GridHeaderComponent {
     this.zonesWithDevices$ = combineLatest(zonesWithDevices$)
       .pipe(
         tap(zones => {
+          this.gamingCentersService.zoneNames = zones.map(z => new ZoneName(z.id, z.name, 1))
           this.selectedZone = zones[0]
           this.deviceSharingService.setDevices(this.selectedZone.devices)
         })

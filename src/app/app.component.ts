@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TariffsService } from './shared/services/tariffs.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'reverse-place-admin-panel-web';
+
+  constructor(
+    private tariffsService: TariffsService
+  ){
+
+  }
+
+  ngOnInit(): void {
+    this.tariffsService.getTariffsByGamingCenterId(1).subscribe({
+      next: _ => _,
+      error: err => console.error(err)
+    })
+
+  }
 }

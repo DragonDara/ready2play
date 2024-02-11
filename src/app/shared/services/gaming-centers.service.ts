@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { collectionData, docData, docSnapshots } from '@angular/fire/firestore';
-import { DocumentReference, Firestore, collection, collectionGroup, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
-import { Observable, concatMap, first, from, map, mergeMap, of, single, switchMap, take, tap, toArray } from 'rxjs';
-import { Tariff } from '../../models/entities/classes/Tariff';
+import { Firestore, collection, collectionData, doc, docSnapshots, getDocs, query, where } from '@angular/fire/firestore';
+import { Observable, first, map, switchMap } from 'rxjs';
 import { Zone } from '../../models/entities/classes/Zone';
-import { IGamingCenter } from '../../models/entities/interfaces/IGamingCenter';
-import { ITariff } from '../../models/entities/interfaces/ITariff';
-import { IZone } from '../../models/entities/interfaces/IZone';
-import { TariffEnum } from '../../models/enums/tariff.enum';
-import { ZoneEnum } from '../../models/enums/zone.enum';
-import { Devices } from '../components/grid/grid.component';
+import { ZoneName } from '../../models/entities/classes/ZoneName';
 import { IDevice } from '../../models/entities/interfaces/IDevice';
+import { Device } from '../../models/entities/classes/Device';
+import { DevicesService } from './devices.service';
 
-@Injectable()
+@Injectable(
+  {
+    providedIn: 'root',
+    deps: [Firestore]
+  }
+)
 export class GamingCentersService {
+
+  private _zoneNames: ZoneName[] = [];
+
+  set zoneNames(zoneNames: ZoneName[]) {
+    this._zoneNames = zoneNames;
+  }
+
   constructor(
     private firestore: Firestore,
+    private deviceService: DevicesService,
   ) {}
 
   getZoneByZoneId(zoneId: string) {
@@ -70,6 +78,7 @@ export class GamingCentersService {
           zone.id = +zoneId;
           zone.devices = devices
           zone.gamingCenterId = 1
+          this.deviceService.devicesByZone.set(zone.id, devices)
           return zone
         }),
         switchMap(zone => this.getZoneByZoneId$(zone)),
@@ -77,6 +86,11 @@ export class GamingCentersService {
       )
     return result
   }
+
+  getZoneNameByIdFromMemory(zoneId: number): string {
+    return this._zoneNames.find(z => z.id === zoneId)!.name
+  }
+
 
 }
 

@@ -10,7 +10,16 @@ import { Tariff } from '../../models/entities/classes/Tariff';
 export class TariffsService {
 
 
-  private tariffs: ITariff[] = [];
+  private _tariffs!: ITariff[];
+
+  public get tariffs() : ITariff[] {
+    return this._tariffs;
+  }
+
+  set tariffs(tariffs: ITariff[]) {
+    this._tariffs = tariffs;
+  }
+
   constructor(
     private firestore: Firestore
   ) { }
@@ -22,13 +31,13 @@ export class TariffsService {
 
     return collectionData(q, { idField : 'id'}).pipe(
       map(actions => {
-        this.tariffs = actions.map(a => new Tariff(+a.id, a["name"]))
-        return this.tariffs;
+        this._tariffs = actions.map(a => new Tariff(+a.id, a["name"]))
+        return this._tariffs;
       })
     );
   }
 
   getTariffNameByIdFromMemory(tariffId: number): string {
-    return this.tariffs.find(t => t.id === tariffId)!.displayName
+    return this._tariffs.find(t => t.id === tariffId)!.displayName
   }
 }

@@ -10,7 +10,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Тариф" formControlName="tariff">
-          <mat-option *ngFor="let tarif of tariffs$ | async" [value]="tarif">
+          <mat-option *ngFor="let tarif of this.tariffsService.tariffs" [value]="tarif">
             {{tarif.displayName}}
           </mat-option>
         </mat-select>

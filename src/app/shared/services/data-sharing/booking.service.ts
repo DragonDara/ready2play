@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Injectable, inject } from '@angular/core';
+import { Firestore, collection, collectionData, doc, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { BookingNotification } from '../../../models/entities/classes/BookingNotification';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
@@ -8,52 +8,23 @@ import { DeviceEnum } from '../../../models/enums/device.enum';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
 import { Devices } from '../../components/grid/grid.component';
 import { TariffsService } from '../tariffs.service';
+import { GamingCentersService } from '../gaming-centers.service';
+import { DevicesService } from '../devices.service';
 
 @Injectable({
   providedIn: 'root',
   deps: [Firestore]
 })
 export class BookingService {
-  public bookingNotifications: IBookingNotification[] = [
-    {
-      id: 1,
-      userName: 'Darkhan',
-      zone: 'Standard room',
-      tariff: 'Ночной',
-      device: Devices[0],
-      status: BookingStatus.Pending,
-      timeFrom: new Date(2023, 11, 12, 21, 30, 0),
-      timeTo: new Date(2023, 11, 12, 23, 30, 0),
-    },
-    {
-      id: 3,
-      userName: 'Aikhan',
-      zone: 'Standard room',
-      tariff: 'Ночной',
-      device: Devices[0],
-      status: BookingStatus.Pending,
-      timeFrom: new Date(2023, 11, 13, 10, 0, 0),
-      timeTo: new Date(2023, 11, 13, 13, 0, 0),
-    },
-    {
-      id: 2,
-      userName: 'Nurlan',
-      zone: 'Playstation room',
-      tariff: 'Ночной',
-      device: Devices[3],
-      status: BookingStatus.Pending,
-
-      timeFrom: new Date(2023, 11, 12, 21, 30, 0),
-      timeTo: new Date(2023, 11, 12, 23, 30, 0),
-    },
-  ];
 
   private bookingsSource = new BehaviorSubject<IBookingNotification[]>([]);
   currentBookings = this.bookingsSource.asObservable();
 
   constructor(
     private firestore: Firestore,
-    private tariffsService: TariffsService
+    private tariffsService: TariffsService,
+    private gamingCentersService: GamingCentersService,
+    private devicesService: DevicesService
   ) {
   }
 
@@ -62,22 +33,39 @@ export class BookingService {
     const q = query(bookingsRef, where("gamingCenterId", "==", gamingCenterId.toString()));
 
     return collectionData(q).pipe(
-      map(actions => actions.map(a => {
-        const tariffName = this.tariffsService.getTariffNameByIdFromMemory(a["tariffId"]);
-        console.log(tariffName);
-        const booking = new BookingNotification(a["id"], a["username"], a["status"], a["zoneId"], a["deviceId"], new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
-        return booking;
-        }
-      )
+      map(actions => {
+        const bookings = actions.map(a => {
+          const tariffName = this.tariffsService.getTariffNameByIdFromMemory(a["tariffId"]);
+          const zoneName = this.gamingCentersService.getZoneNameByIdFromMemory(+a["zoneId"]);
+          const device = this.devicesService.devicesByZone.get(+a["zoneId"])!.find(d => d.number === a["deviceId"])!
+          const booking = new BookingNotification(a["id"], a["username"], a["status"], zoneName, device, new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
+          return booking;
+          }
+        )
+        return bookings;
+      }
       )
     )
   }
 
-  addBooking(booking: IBookingNotification) {
-    booking.device.mode = DeviceMode.Reserved;
-    booking.status = BookingStatus.Accepted;
-    const currentBookings = this.bookingsSource.getValue();
-    this.bookingsSource.next([...currentBookings, booking]);
+  addBooking(booking: IBookingNotification): void {
+    updateDoc(
+      doc(collection(this.firestore, "bookings"), booking.id.toString()),
+      {
+        status: BookingStatus.Accepted
+      }
+    ).then(
+      _ => {
+        booking.device.mode = DeviceMode.Reserved;
+        booking.status = BookingStatus.Accepted;
+
+        const currentBookings = this.bookingsSource.getValue();
+        this.bookingsSource.next([...currentBookings, booking]);
+      }
+    ).catch(
+      err => console.error(err)
+    )
+
   }
 
   rejectBooking(bookingId: number) {
