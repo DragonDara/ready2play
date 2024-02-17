@@ -1,0 +1,19 @@
+<div class="qrcodeImage">
+  <qrcode
+    [qrdata]="'tel:' + this.phoneNumber"
+    [allowEmptyString]="true"
+    [ariaLabel]="'QR Code image with the following content...'"
+    [cssClass]="'center'"
+    [colorDark]="'2F80ED'"
+    [colorLight]="'#ffffffff'"
+    [elementType]="'canvas'"
+    [errorCorrectionLevel]="'M'"
+    [imageSrc]="'./assets/angular-logo.png'"
+    [imageHeight]="75"
+    [imageWidth]="90"
+    [margin]="4"
+    [scale]="1"
+    [title]="'A custom title attribute'"
+    [width]="300"
+  ></qrcode>
+</div>

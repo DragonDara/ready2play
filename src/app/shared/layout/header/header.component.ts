@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { routeHeaderTextDictionary } from '../../constants/route-header-text-dictionary';
 import { HeaderService } from '../../services/header.service';
@@ -8,6 +8,7 @@ import { NotificationModalComponent } from '../../../features/notification-modal
 import { ManualBookingFormComponent } from '../../../features/manual-booking-form/manual-booking-form.component';
 import { BookingService } from '../../services/data-sharing/booking.service';
 import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
+import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,10 @@ import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  hidden = false;
-  pendingBookingCount: number = 0;
+  hidden = true;
+  pendingBookingCount!: number;
+
+  pendingBookings!: IBookingNotification[]
 
   constructor(
     public dialog: MatDialog,
@@ -26,9 +29,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-
-
     this.router.events
       .pipe(
         filter((value) => value instanceof NavigationEnd),
@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
       .subscribe((headerText) => {
         this.headerService.header.next(headerText as string);
       });
+
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +49,16 @@ export class HeaderComponent implements OnInit {
       this.bookingService.getBookings(1, BookingStatus.Pending)
       .subscribe({
         next: (bookings) => {
-          this.pendingBookingCount += bookings.length;
+          if(bookings.length === 0){
+            this.hidden = true
+          }
+          else{
+            this.hidden = false
+            this.pendingBookings = bookings
+            this.pendingBookingCount = bookings.length
+            this.bookingService.pendingBookingSource.next(this.pendingBookings);
+
+          }
         },
         error: (err) => console.error(err)
       })
@@ -56,12 +66,13 @@ export class HeaderComponent implements OnInit {
   }
 
   openDialog() {
-    this.hidden = true;
 
-    this.dialog.open(NotificationModalComponent, {
+    const dialog = this.dialog.open(NotificationModalComponent, {
       panelClass: 'modal-notification',
-      position: { top: '70px', right: '220px' },
+      position: { right: '0'},
+      data: this.pendingBookings
     });
+
   }
 
   onManualBooking() {

@@ -80,7 +80,8 @@ export class ManualBookingFormComponent implements OnInit {
       tariff: (this.form.value["tariff"] as ITariff).displayName,
       timeFrom: new Date(this.form.value["timeFrom"]), //2024-02-07 09:00
       timeTo: new Date(this.form.value["timeTo"]),
-      device: this.form.value["devices"]
+      device: this.form.value["devices"],
+      phoneNumber: this.form.value["phoneNumber"],
 
     }
 

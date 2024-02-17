@@ -1,24 +1,44 @@
-import { Component, OnDestroy } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, Inject, OnDestroy } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IBookingNotification } from '../../models/entities/interfaces/IBookingNotification';
 import { BookingService } from '../../shared/services/data-sharing/booking.service';
-import { Firestore } from '@angular/fire/firestore';
-import { BookingNotification } from '../../models/entities/classes/BookingNotification';
-import { Observable, tap } from 'rxjs';
-import { BookingStatus } from '../../models/enums/bookingStatus.enum';
 
 @Component({
   selector: 'app-notification-modal',
   templateUrl: './notification-modal.component.html',
   styleUrl: './notification-modal.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-out', style({ transform: 'translateX(0)' })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class NotificationModalComponent implements OnDestroy {
 
-  public bookingNotifications$!: Observable<BookingNotification[]>;
-  constructor(private bookingService: BookingService) {}
+  actionEmitter = new EventEmitter<IBookingNotification>();
+  constructor(
+    private bookingService: BookingService,
+    @Inject(MAT_DIALOG_DATA)
+    public pendingBookings: IBookingNotification[],
+    ) {}
 
   ngOnInit(): void {
-    this.bookingNotifications$ = this.bookingService.getBookings(1, BookingStatus.Pending)
+    this.bookingService.pendingBookingSource.subscribe({
+      next: (bookings) => {
+        this.pendingBookings = bookings
+      }
+    })
+  }
 
+  onAction(booking: IBookingNotification): void {
+    this.pendingBookings = this.pendingBookings.filter((b) => b.id !== booking.id);
   }
 
   ngOnDestroy(): void {

@@ -42,6 +42,8 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { GamingCentersService } from './shared/services/gaming-centers.service';
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrCodeModalComponent } from './features/qr-code-modal/qr-code-modal.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { GamingCentersService } from './shared/services/gaming-centers.service';
     GridHeaderComponent,
     DeviceBookingsComponent,
     DeviceInfoComponent,
-    ManualBookingFormComponent
+    ManualBookingFormComponent,
+    QrCodeModalComponent
   ],
   imports: [
     provideFirestore(() => getFirestore()),
@@ -86,6 +89,7 @@ import { GamingCentersService } from './shared/services/gaming-centers.service';
     MatSelectModule,
     MatButtonToggleModule,
     MatInputModule,
+    QRCodeModule
 
   ],
   providers: [

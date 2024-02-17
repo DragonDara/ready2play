@@ -1,5 +1,8 @@
-<span>Заявки на бронь</span>
-<mat-dialog-content>
-  <app-card-booking *ngFor="let booking of bookingNotifications$ | async" [booking]="booking">
-  </app-card-booking>
-</mat-dialog-content>
+<div [@slideInOut]>
+  <h2>Заявки на бронь</h2>
+  <mat-dialog-content>
+    <app-card-booking *ngFor="let booking of pendingBookings" [booking]="booking"
+      (action)="onAction($event)">
+    </app-card-booking>
+  </mat-dialog-content>
+</div>

@@ -12,8 +12,10 @@ export class BookingNotification implements IBookingNotification {
   timeFrom: Date;
   timeTo: Date;
   tariff: string;
+  phoneNumber: string;
 
-  constructor(id: number, userName: string, status: BookingStatus, zone: IZoneNameable, device: IDevice, timeFrom: Date, timeTo: Date, tariff: string) {
+
+  constructor(id: number, userName: string, status: BookingStatus, zone: IZoneNameable, device: IDevice, timeFrom: Date, timeTo: Date, tariff: string, phoneNumber: string) {
     this.id = id;
     this.userName = userName;
     this.status = status;
@@ -22,5 +24,6 @@ export class BookingNotification implements IBookingNotification {
     this.timeFrom = timeFrom;
     this.timeTo = timeTo;
     this.tariff = tariff;
+    this.phoneNumber = phoneNumber;
   }
 }

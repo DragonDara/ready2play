@@ -30,7 +30,7 @@ export class BookingService {
   }
 
 
-
+  public pendingBookingSource = new Subject<IBookingNotification[]>();
   private bookingsSource = new BehaviorSubject<IBookingNotification[]>([]);
 
   constructor(
@@ -51,7 +51,7 @@ export class BookingService {
           const tariffName = this.tariffsService.getTariffNameByIdFromMemory(a["tariffId"]);
           const zone = this.gamingCentersService.getZoneByZoneIdFromMemory(+a["zoneId"]);
           const device = this.devicesService.devicesByZone.get(+a["zoneId"])!.find(d => d.number === a["deviceId"])!
-          const booking = new BookingNotification(a["id"], a["username"], a["status"], zone, device, new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
+          const booking = new BookingNotification(a["id"], a["username"], a["status"], zone, device, new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName, a["phoneNumber"]);
           return booking;
           }
         )
