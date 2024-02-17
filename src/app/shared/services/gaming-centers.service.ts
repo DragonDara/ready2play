@@ -17,6 +17,9 @@ export class GamingCentersService {
 
   private _zoneNames: ZoneName[] = [];
 
+  get zoneNames(): ZoneName[] {
+    return this._zoneNames;
+  }
   set zoneNames(zoneNames: ZoneName[]) {
     this._zoneNames = zoneNames;
   }
@@ -78,7 +81,7 @@ export class GamingCentersService {
           zone.id = +zoneId;
           zone.devices = devices
           zone.gamingCenterId = 1
-          this.deviceService.devicesByZone.set(zone.id, devices)
+          this.deviceService.devicesByZone.set(zone.id, devices);
           return zone
         }),
         switchMap(zone => this.getZoneByZoneId$(zone)),
@@ -89,6 +92,9 @@ export class GamingCentersService {
 
   getZoneNameByIdFromMemory(zoneId: number): string {
     return this._zoneNames.find(z => z.id === zoneId)!.name
+  }
+  getZoneByZoneIdFromMemory(zoneId: number): ZoneName {
+    return this._zoneNames.find(z => z.id === zoneId)!;
   }
 
 

@@ -5,6 +5,7 @@ import { Zone } from '../../../models/entities/classes/Zone';
 import { DeviceSharingService } from '../../services/data-sharing/device-sharing.service';
 import { GamingCentersService } from '../../services/gaming-centers.service';
 import { ZoneName } from '../../../models/entities/classes/ZoneName';
+import { ZonesSharingService } from '../../services/data-sharing/zones-sharing.service';
 
 @Component({
   selector: 'app-grid-header',
@@ -18,22 +19,18 @@ export class GridHeaderComponent {
   constructor(
     private gamingCentersService: GamingCentersService,
     private deviceSharingService: DeviceSharingService,
+    private zoneSharingService: ZonesSharingService,
   ) {
   }
 
-  async ngOnInit(): Promise<void> {
-    const zoneIds = await this.gamingCentersService.getZonesIdsByGamingCenterId(1);
-    const zonesWithDevices$: Observable<Zone>[] = []
-    zoneIds.forEach(id => {
-      zonesWithDevices$.push(this.gamingCentersService.getZoneWithDevicesByZoneId(id))
-    })
-    this.zonesWithDevices$ = combineLatest(zonesWithDevices$)
+  ngOnInit(): void {
+    this.zonesWithDevices$ = this.zoneSharingService.getZones()
       .pipe(
-        tap(zones => {
+        tap((zones: Zone[]) => {
           this.gamingCentersService.zoneNames = zones.map(z => new ZoneName(z.id, z.name, 1))
+          this.deviceSharingService.setDevices(zones[0].devices)
           this.selectedZone = zones[0]
-          this.deviceSharingService.setDevices(this.selectedZone.devices)
-        })
+        }),
       )
   }
 

@@ -4,6 +4,7 @@ import { BookingService } from '../../shared/services/data-sharing/booking.servi
 import { Firestore } from '@angular/fire/firestore';
 import { BookingNotification } from '../../models/entities/classes/BookingNotification';
 import { Observable, tap } from 'rxjs';
+import { BookingStatus } from '../../models/enums/bookingStatus.enum';
 
 @Component({
   selector: 'app-notification-modal',
@@ -16,12 +17,8 @@ export class NotificationModalComponent implements OnDestroy {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
-    this.bookingNotifications$ = this.bookingService.getBookingsByGamingCenterId(1)
+    this.bookingNotifications$ = this.bookingService.getBookings(1, BookingStatus.Pending)
 
-  }
-
-  toDeleteBookingdFromModal(booking: BookingNotification): void {
-    this.bookingNotifications$ = this.bookingService.currentBookings
   }
 
   ngOnDestroy(): void {

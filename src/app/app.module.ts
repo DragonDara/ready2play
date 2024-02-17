@@ -30,7 +30,7 @@ import { CellCardComponent } from './shared/components/cell-card/cell-card.compo
 import { GridHeaderComponent } from './shared/components/grid-header/grid-header.component';
 import { GridComponent } from './shared/components/grid/grid.component';
 import { UserBookingComponent } from './shared/components/user-booking/user-booking.component';
-import { DeviceIconComponent } from './shared/icons/device-icon/device-icon.component';
+import { DeviceIconComponent } from './shared/components/device-icon/device-icon.component';
 import { DefaultModule } from './shared/layout/default/default.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DeviceBookingsComponent } from './shared/components/device-bookings/device-bookings.component';

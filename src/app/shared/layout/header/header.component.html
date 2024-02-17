@@ -5,7 +5,7 @@
     <button class="header-button" mat-raised-button color="primary" (click)="onManualBooking()">
       Забронировать вручную
     </button>
-    <mat-icon (click)="openDialog()"  matBadge="15" [matBadgeHidden]="hidden">notifications</mat-icon>
+    <mat-icon (click)="openDialog()"  [matBadge]="pendingBookingCount" [matBadgeHidden]="hidden">notifications</mat-icon>
     <app-profile class="profile"></app-profile>
   </div>
 </header>

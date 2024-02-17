@@ -1,7 +1,7 @@
 <app-user-booking [userName]="booking?.userName"></app-user-booking>
 
 <div class="container-cell">
-  <app-cell-card title="Зал" [value]="booking?.zone"></app-cell-card>
+  <app-cell-card title="Зал" [value]="booking?.zone?.name"></app-cell-card>
   <app-cell-card title="Место" [value]="booking?.device?.number"></app-cell-card>
   <app-cell-card title="Тариф" [value]="booking?.tariff"></app-cell-card>
   <app-cell-card

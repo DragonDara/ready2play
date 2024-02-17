@@ -6,6 +6,8 @@ import { HeaderService } from '../../services/header.service';
 import { filter, map, startWith } from 'rxjs';
 import { NotificationModalComponent } from '../../../features/notification-modal/notification-modal.component';
 import { ManualBookingFormComponent } from '../../../features/manual-booking-form/manual-booking-form.component';
+import { BookingService } from '../../services/data-sharing/booking.service';
+import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +16,19 @@ import { ManualBookingFormComponent } from '../../../features/manual-booking-for
 })
 export class HeaderComponent implements OnInit {
   hidden = false;
+  pendingBookingCount: number = 0;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private headerService: HeaderService,
+    private bookingService: BookingService,
   ) {}
 
   ngOnInit(): void {
+
+
+
     this.router.events
       .pipe(
         filter((value) => value instanceof NavigationEnd),
@@ -35,8 +42,21 @@ export class HeaderComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit(): void {
+    // TODO: Huge custom code. Need to refactor!!!!!
+    setTimeout(() => {
+      this.bookingService.getBookings(1, BookingStatus.Pending)
+      .subscribe({
+        next: (bookings) => {
+          this.pendingBookingCount += bookings.length;
+        },
+        error: (err) => console.error(err)
+      })
+    }, 2000)
+  }
+
   openDialog() {
-    this.hidden = !this.hidden;
+    this.hidden = true;
 
     this.dialog.open(NotificationModalComponent, {
       panelClass: 'modal-notification',

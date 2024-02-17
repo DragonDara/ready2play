@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, query, updateDoc, where } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Firestore, collection, collectionData, doc, getCountFromServer, query, updateDoc, where } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { BookingNotification } from '../../../models/entities/classes/BookingNotification';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
@@ -17,8 +17,21 @@ import { DevicesService } from '../devices.service';
 })
 export class BookingService {
 
+  private _acceptedBookings!: IBookingNotification[]
+
+
+  public get acceptedBookings() : IBookingNotification[] {
+    return this._acceptedBookings
+  }
+
+
+  public set acceptedBookings(b: IBookingNotification[]) {
+    this._acceptedBookings = b;
+  }
+
+
+
   private bookingsSource = new BehaviorSubject<IBookingNotification[]>([]);
-  currentBookings = this.bookingsSource.asObservable();
 
   constructor(
     private firestore: Firestore,
@@ -28,17 +41,17 @@ export class BookingService {
   ) {
   }
 
-  getBookingsByGamingCenterId(gamingCenterId: number): Observable<BookingNotification[]> {
+  getBookings(gamingCenterId: number, status: BookingStatus): Observable<BookingNotification[]> {
     const bookingsRef = collection(this.firestore, "bookings");
-    const q = query(bookingsRef, where("gamingCenterId", "==", gamingCenterId.toString()));
+    const q = query(bookingsRef, where("gamingCenterId", "==", gamingCenterId.toString()), where("status", "==", status));
 
     return collectionData(q).pipe(
       map(actions => {
         const bookings = actions.map(a => {
           const tariffName = this.tariffsService.getTariffNameByIdFromMemory(a["tariffId"]);
-          const zoneName = this.gamingCentersService.getZoneNameByIdFromMemory(+a["zoneId"]);
+          const zone = this.gamingCentersService.getZoneByZoneIdFromMemory(+a["zoneId"]);
           const device = this.devicesService.devicesByZone.get(+a["zoneId"])!.find(d => d.number === a["deviceId"])!
-          const booking = new BookingNotification(a["id"], a["username"], a["status"], zoneName, device, new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
+          const booking = new BookingNotification(a["id"], a["username"], a["status"], zone, device, new Date(a["timeFrom"].toDate()), new Date(a["timeTo"].toDate()), tariffName)
           return booking;
           }
         )
@@ -68,15 +81,17 @@ export class BookingService {
 
   }
 
-  rejectBooking(bookingId: number) {
-    const currentBookings = this.bookingsSource.getValue();
-    const bookingIndex = currentBookings.findIndex(b => b.id === bookingId);
-    if (bookingIndex !== -1) {
-      currentBookings[bookingIndex].status = BookingStatus.Rejected;
-      this.bookingsSource.next(currentBookings);
-    } else {
-      console.error(`Booking with ID ${bookingId} not found.`);
-    }
+  rejectBooking(booking: IBookingNotification) {
+    updateDoc(
+      doc(collection(this.firestore, "bookings"), booking.id.toString()),
+      {
+        status: BookingStatus.Rejected
+      }
+    ).then(
+      _ => _
+    ).catch(
+      err => console.error(err)
+    )
   }
   getBookingsForDeviceTypeAndNumber(type: DeviceEnum, number: number): IBookingNotification[] {
     return this.bookingsSource
@@ -85,8 +100,7 @@ export class BookingService {
   }
 
   getAcceptedBookings(type: DeviceEnum, number: number, bookingStatus: BookingStatus): IBookingNotification[] {
-    return this.bookingsSource
-      .getValue()
+    return this._acceptedBookings
       .filter((b) => b.device.type === type && b.device.number === number && b.status === bookingStatus);
   }
 }

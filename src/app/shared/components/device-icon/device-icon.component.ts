@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { DeviceEnum } from '../../../models/enums/device.enum';
 import { IDevice } from '../../../models/entities/interfaces/IDevice';
 import { DeviceMode } from '../../../models/enums/deviceMode.enum';
-import { DeviceBookingsComponent } from '../../components/device-bookings/device-bookings.component';
+import { DeviceBookingsComponent } from '../device-bookings/device-bookings.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IBookingNotification } from '../../../models/entities/interfaces/IBookingNotification';
 import { BookingService } from '../../services/data-sharing/booking.service';
-import { DeviceInfoComponent } from '../../components/device-info/device-info.component';
+import { DeviceInfoComponent } from '../device-info/device-info.component';
 import { BookingStatus } from '../../../models/enums/bookingStatus.enum';
 
 @Component({
@@ -25,6 +25,7 @@ export class DeviceIconComponent {
     ipAddress: '',
     macAddress: ''
   };
+  @Input() booking!: IBookingNotification;
   selectedDeviceBookings: IBookingNotification[] = [];
   private currentBooking: IBookingNotification = {} as IBookingNotification;
   constructor(
@@ -33,10 +34,14 @@ export class DeviceIconComponent {
   ) {}
 
   ngOnInit(): void {
-    this.bookingService.currentBookings.subscribe(
+    this.bookingService.getBookings(1, BookingStatus.Accepted).subscribe(
       {
-        next: currentBooking => {
-          this.currentBooking = <IBookingNotification>currentBooking.at(0);
+        next: acceptedBookings => {
+          if(acceptedBookings){
+            this.bookingService.acceptedBookings = acceptedBookings;
+            this.currentBooking = acceptedBookings.find(booking => booking.device.number === this.device.number)!
+          }
+
         },
         error: err => console.error(err)
       }
@@ -120,7 +125,6 @@ export class DeviceIconComponent {
   }
 
   onDeviceMouseEntered(device: IDevice){
-    console.log(device)
     const dialogRef = this.dialog.open(DeviceInfoComponent, {
       minWidth: '400px',
       maxWidth: '400px',
