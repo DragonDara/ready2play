@@ -38,8 +38,8 @@ export class DeviceIconComponent {
       {
         next: acceptedBookings => {
           if(acceptedBookings){
-            this.bookingService.acceptedBookings = acceptedBookings;
-            this.currentBooking = acceptedBookings.find(booking => booking.device.number === this.device.number)!
+            this.bookingService.acceptedBookings = acceptedBookings.sort((a, b) => a.timeFrom.getTime() - b.timeFrom.getTime());
+            this.currentBooking = acceptedBookings.filter(booking => booking.device.number === this.device.number)[0];
           }
 
         },

@@ -22,7 +22,6 @@ import { BookingService } from '../../shared/services/data-sharing/booking.servi
 })
 export class NotificationModalComponent implements OnDestroy {
 
-  actionEmitter = new EventEmitter<IBookingNotification>();
   constructor(
     private bookingService: BookingService,
     @Inject(MAT_DIALOG_DATA)
