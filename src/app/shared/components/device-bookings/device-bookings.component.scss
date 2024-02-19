@@ -13,3 +13,12 @@ mat-card-title {
 mat-card {
   margin-bottom: 8px;
 }
+
+.inline-list {
+  display: flex;
+}
+
+::ng-deep .auto-width-list mat-list-item {
+  width: auto;
+}
+

@@ -9,6 +9,10 @@ import { IBookingNotification } from '../../../models/entities/interfaces/IBooki
 })
 export class DeviceBookingsComponent implements OnInit {
   bookings: IBookingNotification[];
+  currentBooking: IBookingNotification;
+  nextBookings : {timeFrom: Date, timeTo: Date, username: string}[] = [];
+
+  isViewAllBookings = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -17,10 +21,22 @@ export class DeviceBookingsComponent implements OnInit {
       selectedDeviceBookings: IBookingNotification[];
     },
   ) {
-    this.bookings = data.selectedDeviceBookings;
+    this.bookings = data.selectedDeviceBookings.slice(1, data.selectedDeviceBookings.length - 1);
+    this.currentBooking = data.selectedDeviceBookings[0]
+    this.nextBookings = data.selectedDeviceBookings.map(booking => {
+      return {
+        timeFrom: booking.timeFrom,
+        timeTo: booking.timeTo,
+        username: booking.userName
+      }
+    }).slice(0, 2)
   }
 
   ngOnInit() {
     // Fetch and display bookings for this.device
+  }
+
+  viewAllBookings(){
+    this.isViewAllBookings = !this.isViewAllBookings;
   }
 }

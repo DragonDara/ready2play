@@ -38,12 +38,11 @@ import { DeviceInfoComponent } from './shared/components/device-info/device-info
 import { ManualBookingFormComponent } from './features/manual-booking-form/manual-booking-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment.dev';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { GamingCentersService } from './shared/services/gaming-centers.service';
 import { QRCodeModule } from 'angularx-qrcode';
 import { QrCodeModalComponent } from './features/qr-code-modal/qr-code-modal.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -89,8 +88,7 @@ import { QrCodeModalComponent } from './features/qr-code-modal/qr-code-modal.com
     MatSelectModule,
     MatButtonToggleModule,
     MatInputModule,
-    QRCodeModule
-
+    QRCodeModule,
   ],
   providers: [
   ],

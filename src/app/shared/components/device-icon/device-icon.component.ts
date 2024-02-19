@@ -107,7 +107,7 @@ export class DeviceIconComponent {
     }
   }
 
-  onMouseEntered(){
+  onUsernameClicked(){
     this.selectedDeviceBookings = this.bookingService.getAcceptedBookings(
       this.device.type,
       this.device.number,
@@ -124,7 +124,7 @@ export class DeviceIconComponent {
     });
   }
 
-  onDeviceMouseEntered(device: IDevice){
+  onDeviceClicked(device: IDevice){
     const dialogRef = this.dialog.open(DeviceInfoComponent, {
       minWidth: '400px',
       maxWidth: '400px',

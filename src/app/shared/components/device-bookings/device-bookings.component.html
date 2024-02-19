@@ -1,25 +1,53 @@
 <h2 mat-dialog-title>Место {{ data.deviceNumber }}</h2>
 <mat-dialog-content>
-  <mat-card *ngFor="let booking of bookings">
+  <mat-card>
     <mat-card-header>
-      <mat-card-title>{{ booking.userName }}</mat-card-title>
+      <mat-card-title>{{ currentBooking.userName }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="container-cell">
-        <app-cell-card title="Зал" [value]="booking?.zone?.name"></app-cell-card>
-        <app-cell-card title="Место" [value]="booking?.device?.number"></app-cell-card>
-        <app-cell-card title="Тариф" [value]="booking?.tariff"></app-cell-card>
+        <app-cell-card title="Зал" [value]="currentBooking.zone.name"></app-cell-card>
+        <app-cell-card title="Место" [value]="currentBooking.device.number"></app-cell-card>
+        <app-cell-card title="Тариф" [value]="currentBooking.tariff"></app-cell-card>
         <app-cell-card
           title="Время"
-          value="{{ booking?.timeFrom | date: 'HH:mm' }} - {{ booking?.timeTo | date: 'HH:mm' }}"
+          value="{{ currentBooking.timeFrom | date: 'HH:mm' }} - {{ currentBooking.timeTo | date: 'HH:mm' }}"
         ></app-cell-card>
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card *ngIf="bookings.length === 0">
+  <mat-card *ngIf="!isViewAllBookings;else otherBookings">
+    <mat-card-content>
+      <mat-list class="inline-list auto-width-list">
+        <mat-list-item *ngFor="let next of nextBookings">{{next.timeFrom | date: 'HH:mm' }}-{{next.timeTo | date: 'HH:mm'}} {{next.username}}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <button mat-button color="primary" (click)="viewAllBookings()">Посмотреть все брони</button>
+  </mat-card>
+  <mat-card *ngIf="data.selectedDeviceBookings.length === 0">
     <mat-card-content>Нету активных бронировании для этого устройства</mat-card-content>
   </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
  <button mat-button mat-dialog-close>Закрыть</button>
 </mat-dialog-actions>
+
+<ng-template #otherBookings>
+  <mat-card *ngFor="let booking of bookings">
+    <mat-card-header>
+      <mat-card-title>{{ booking.userName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container-cell">
+        <app-cell-card title="Зал" [value]="booking.zone.name"></app-cell-card>
+        <app-cell-card title="Место" [value]="booking.device.number"></app-cell-card>
+        <app-cell-card title="Тариф" [value]="booking.tariff"></app-cell-card>
+        <app-cell-card
+          title="Время"
+          value="{{ booking.timeFrom | date: 'HH:mm' }} - {{ booking.timeTo | date: 'HH:mm' }}"
+        ></app-cell-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
